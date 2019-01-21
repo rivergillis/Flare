@@ -1,0 +1,3 @@
+rootProject.name = 'Flare'
+
+include ':app'
