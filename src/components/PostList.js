@@ -38,8 +38,8 @@ class PostList extends Component {
         <SimpleHeader title="Post List" />
         <Content>
           <List>{posts.map(postText => this.renderSamplePost(postText))}</List>
-          <Button onPress={this.onButtonPress}>
-            <Text>Test</Text>
+          <Button onPress={this.onButtonPress} disabled={!this.props.loading}>
+            <Text>Fetch some data using a redux action</Text>
           </Button>
         </Content>
       </Container>
