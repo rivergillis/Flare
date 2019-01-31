@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Header, Left, Body, Right, Title } from 'native-base';
 
-export default class HeaderTitleExample extends Component {
+export default class SimpleHeader extends Component {
   render() {
     return (
       <Header>
