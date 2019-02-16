@@ -5,16 +5,18 @@ import { connect } from 'react-redux';
 import SimpleHeader from './common/SimpleHeader';
 
 // Import the redux actions
-import * as Actions from '../actions';
-
-const posts = ['sample post 1', 'sample post 2', 'sample post 3'];
+import * as PostListActions from '../actions/postList';
 
 class PostList extends Component {
+  // Called as soon as the component is mounted.
+  componentDidMount() {
+    const { fetchPostList } = this.props;
+    fetchPostList();
+  }
+
   // Arrow functions auto-bind
-  onButtonPress = () => {
-    const { getData } = this.props;
-    console.log('button pressed');
-    getData();
+  onMakePostButtonPress = () => {
+    console.log('make post button pressed');
   };
 
   renderSamplePost = postText => (
@@ -24,16 +26,26 @@ class PostList extends Component {
   );
 
   render() {
-    const { loading, data } = this.props;
-    console.log(`Loading? ${loading} data:`);
-    console.log(data);
+    const { posts, loadingPostList } = this.props;
+
+    if (loadingPostList) {
+      return (
+        <Container>
+          <SimpleHeader title="Post List" />
+          <Content>
+            <Text>Fetching posts...</Text>
+          </Content>
+        </Container>
+      );
+    }
+
     return (
       <Container>
         <SimpleHeader title="Post List" />
         <Content>
           <List>{posts.map(postText => this.renderSamplePost(postText))}</List>
-          <Button onPress={this.onButtonPress} disabled={!loading}>
-            <Text>Fetch some data using a redux action</Text>
+          <Button onPress={this.onMakePostButtonPress}>
+            <Text>Make Post</Text>
           </Button>
         </Content>
       </Container>
@@ -46,8 +58,8 @@ class PostList extends Component {
 // The returned object becomes part of the component's "this.props"
 function mapStateToProps(state) {
   return {
-    loading: state.DataReducer.loading,
-    data: state.DataReducer.data,
+    posts: state.PostListReducer.posts,
+    loadingPostList: state.PostListReducer.loadingPostList,
   };
 }
 
@@ -55,7 +67,7 @@ function mapStateToProps(state) {
 // that we imported at the top of the file.
 // The actions become part of the component's "this.props" as functions.
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators(Actions, dispatch);
+  return bindActionCreators(PostListActions, dispatch);
 }
 
 // connect everything and export the component

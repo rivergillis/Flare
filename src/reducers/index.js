@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
-import DataReducer from './DataReducer';
+import PostListReducer from './PostListReducer';
 
 // Combine all the reducers together into one big reducer.
 const rootReducer = combineReducers({
-  DataReducer,
+  PostListReducer,
   // ,[ANOTHER REDUCER], [ANOTHER REDUCER] ....
 });
 
