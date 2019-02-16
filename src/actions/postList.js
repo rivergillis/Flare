@@ -10,8 +10,11 @@ const getPostListSuccess = (dispatch, querySnapshot) => {
   const posts = [];
   querySnapshot.forEach(doc => {
     const data = doc.data();
+
+    // Store the firebase document ID with each post, so that we can easily grab comments.
     const postDocId = doc.id;
     data.docId = postDocId;
+
     posts.push(data);
   });
 
