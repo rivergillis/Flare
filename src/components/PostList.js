@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { Container, Content, List, ListItem, Text, Button } from 'native-base';
-import SimpleHeader from './common/SimpleHeader';
-
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import SimpleHeader from './common/SimpleHeader';
 
 // Import the redux actions
 import * as Actions from '../actions';
@@ -11,34 +10,29 @@ import * as Actions from '../actions';
 const posts = ['sample post 1', 'sample post 2', 'sample post 3'];
 
 class PostList extends Component {
-  constructor(props) {
-    super(props);
-    this.renderSamplePost = this.renderSamplePost.bind(this);
-    this.onButtonPress = this.onButtonPress.bind(this);
-  }
-
-  onButtonPress() {
+  // Arrow functions auto-bind
+  onButtonPress = () => {
+    const { getData } = this.props;
     console.log('button pressed');
-    this.props.getData();
-  }
+    getData();
+  };
 
-  renderSamplePost(postText) {
-    return (
-      <ListItem key={postText}>
-        <Text>{postText}</Text>
-      </ListItem>
-    );
-  }
+  renderSamplePost = postText => (
+    <ListItem key={postText}>
+      <Text>{postText}</Text>
+    </ListItem>
+  );
 
   render() {
-    console.log(`Loading? ${this.props.loading} data:`);
-    console.log(this.props.data);
+    const { loading, data } = this.props;
+    console.log(`Loading? ${loading} data:`);
+    console.log(data);
     return (
       <Container>
         <SimpleHeader title="Post List" />
         <Content>
           <List>{posts.map(postText => this.renderSamplePost(postText))}</List>
-          <Button onPress={this.onButtonPress} disabled={!this.props.loading}>
+          <Button onPress={this.onButtonPress} disabled={!loading}>
             <Text>Fetch some data using a redux action</Text>
           </Button>
         </Content>
@@ -50,7 +44,7 @@ class PostList extends Component {
 // This functions tells redux to give this component the specified parts of the app state
 // that are governed by the reducers.
 // The returned object becomes part of the component's "this.props"
-function mapStateToProps(state, props) {
+function mapStateToProps(state) {
   return {
     loading: state.DataReducer.loading,
     data: state.DataReducer.data,
