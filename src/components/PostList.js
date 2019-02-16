@@ -19,19 +19,20 @@ class PostList extends Component {
     console.log('make post button pressed');
   };
 
-  renderSamplePost = postText => (
-    <ListItem key={postText}>
-      <Text>{postText}</Text>
+  renderSamplePost = post => (
+    <ListItem key={post.text}>
+      <Text>{post.text}</Text>
     </ListItem>
   );
 
   render() {
     const { posts, loadingPostList } = this.props;
+    console.log(posts);
 
     if (loadingPostList) {
       return (
         <Container>
-          <SimpleHeader title="Post List" />
+          <SimpleHeader title="Flare Feed" />
           <Content>
             <Text>Fetching posts...</Text>
           </Content>
@@ -41,9 +42,9 @@ class PostList extends Component {
 
     return (
       <Container>
-        <SimpleHeader title="Post List" />
+        <SimpleHeader title="Flare Feed" />
         <Content>
-          <List>{posts.map(postText => this.renderSamplePost(postText))}</List>
+          <List>{posts.map(post => this.renderSamplePost(post))}</List>
           <Button onPress={this.onMakePostButtonPress}>
             <Text>Make Post</Text>
           </Button>
