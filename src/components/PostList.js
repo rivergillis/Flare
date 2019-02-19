@@ -16,10 +16,13 @@ class PostList extends Component {
 
   // Arrow functions auto-bind
   onMakePostButtonPress = () => {
-    console.log('make post button pressed');
+    const { navigation } = this.props;
+    navigation.navigate('CreatePostView');
   };
 
-  renderSamplePost = post => (
+  // TODO: Make these clickable and send to the PostView page passing along the
+  // post itself as a parameter. See https://reactnavigation.org/docs/en/params.html
+  renderPost = post => (
     <ListItem key={post.text}>
       <Text>{post.text}</Text>
     </ListItem>
@@ -44,7 +47,7 @@ class PostList extends Component {
       <Container>
         <SimpleHeader title="Flare Feed" />
         <Content>
-          <List>{posts.map(post => this.renderSamplePost(post))}</List>
+          <List>{posts.map(post => this.renderPost(post))}</List>
           <Button onPress={this.onMakePostButtonPress}>
             <Text>Make Post</Text>
           </Button>
