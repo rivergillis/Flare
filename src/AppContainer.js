@@ -17,7 +17,7 @@ const AppNavigator = createStackNavigator(
   },
   // This will hide the automatically-added header so that we can use our own
   {
-    initialRouteName: 'Login',
+    initialRouteName: 'Login', // which screen the app starts out on
     headerMode: 'none',
     navigationOptions: {
       headerVisible: false,
