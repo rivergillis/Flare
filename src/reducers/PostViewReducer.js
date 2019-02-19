@@ -12,7 +12,7 @@ const PostViewReducer = (state = INITIAL_STATE, action) => {
     case types.FETCH_POST_LIST:
       return { ...state, loadingPostList: true };
     case types.FETCH_POST_SUCCESS:
-      return { ...state, posts: action.payload, loadingPostList: false };
+      return { ...state, posts: action.payload, comments: action.payload, loadingPostList: false };
     default:
       return state;
   }

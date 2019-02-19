@@ -3,52 +3,24 @@ import { Container, Content, List, ListItem, Text, Button } from 'native-base';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import SimpleHeader from './common/SimpleHeader';
-import PostCard from './common/PostCard';
 
 // Import the redux actions
 import * as PostListActions from '../actions/postList';
 
 class PostView extends Component {
-    componentDidMount() {
-      const { fetchPostList } = this.props;
-      fetchPostList();
-    }
-
-
-renderSamplePost = post => (
-    <ListItem key={post.text}>
-      <Text>{post.text}</Text>
-    </ListItem>
-  );
-
+  componentDidMount() {}
   render() {
-    const { posts, loadingPostList } = this.props;
-    console.log(posts);
-
-    if (loadingPostList) {
-      return (
-        <Container>
-          <SimpleHeader title="Flare Post" />
-          <Content>
-            <Text>Fetching posts...</Text>
-          </Content>
-        </Container>
-      );
-    }
-
+    // const { navigation } = this.props;
+    const { text } = this.props.navigation.state.params;
     return (
       <Container>
-        <SimpleHeader title="Flare Post" />
+      <SimpleHeader title="Flare Post" />
         <Content>
-          <List>{posts.map(post => this.renderSamplePost(post))}</List>
-          <Button onPress={this.onMakePostButtonPress}>
-            <Text>Make Post</Text>
-          </Button>
+          <Text>activePost: {text} </Text>
         </Content>
-      </Container>
-    );
-  }
-  }
+    </Container>    
+    );}
+}
 
 function mapStateToProps(state) {
   return {
