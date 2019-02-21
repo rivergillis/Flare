@@ -38,7 +38,12 @@ class PostList extends Component {
   // post itself as a parameter. See https://reactnavigation.org/docs/en/params.html
   // TODO: Fix styling for post cards
   renderPost = post => (
-    <CardItem key={post.text} button onPress={() => this.onPostPress(post)}>
+    <CardItem
+      key={post.text}
+      button
+      bordered
+      onPress={() => this.onPostPress(post)}
+    >
       <Body>
         <Text>{post.text}</Text>
       </Body>
