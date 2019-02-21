@@ -31,30 +31,38 @@ class PostList extends Component {
   };
 
   onPostPress = post => {
-    const { navigation } = this.props;
-    navigation.navigate('PostView', { post });
+    const { navigation, postComments } = this.props;
+    navigation.navigate('PostView', {
+      post,
+      comments: postComments[post.docId],
+    });
   };
 
   // TODO: Use a better key
   // TODO: Fix these styles
-  renderPost = post => (
-    <CardItem
-      key={post.text}
-      button
-      bordered
-      onPress={() => this.onPostPress(post)}
-    >
-      <Text>{post.text}</Text>
-      <Right>
-        <View style={{ flexDirection: 'row' }}>
-          <Icon name="md-repeat" />
-          <Text>{` ${post.reposts}    `}</Text>
-          <Icon name="md-chatboxes" />
-          <Text>{' 23'}</Text>
-        </View>
-      </Right>
-    </CardItem>
-  );
+  renderPost = post => {
+    const { postComments } = this.props;
+    const comments = postComments[post.docId];
+    const numComments = comments ? comments.length : 0;
+    return (
+      <CardItem
+        key={post.text}
+        button
+        bordered
+        onPress={() => this.onPostPress(post)}
+      >
+        <Text>{post.text}</Text>
+        <Right>
+          <View style={{ flexDirection: 'row' }}>
+            <Icon name="md-repeat" />
+            <Text>{` ${post.reposts}    `}</Text>
+            <Icon name="md-chatboxes" />
+            <Text>{` ${numComments}`}</Text>
+          </View>
+        </Right>
+      </CardItem>
+    );
+  };
 
   render() {
     const { posts, loadingPostList } = this.props;
@@ -92,6 +100,7 @@ function mapStateToProps(state) {
   return {
     posts: state.PostListReducer.posts,
     loadingPostList: state.PostListReducer.loadingPostList,
+    postComments: state.PostListReducer.postComments,
   };
 }
 

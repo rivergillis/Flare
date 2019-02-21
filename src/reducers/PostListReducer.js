@@ -14,6 +14,7 @@ const PostListReducer = (state = INITIAL_STATE, action) => {
     case types.FETCH_POST_SUCCESS:
       return { ...state, posts: action.payload, loadingPostList: false };
     case types.FETCH_POST_COMMENTS_SUCCESS: {
+      // TODO: Put these directly into the posts object
       const newPostComments = { ...state.postComments, ...action.payload };
       return { ...state, postComments: newPostComments };
     }

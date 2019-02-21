@@ -6,12 +6,15 @@ class PostView extends Component {
   render() {
     const { navigation } = this.props;
     const post = navigation.getParam('post', null);
+    const comments = navigation.getParam('comments', null);
 
     return (
       <Container>
         <SimpleHeader title="Flare Post" />
         <Content>
-          <Text>activePost: {post.text} </Text>
+          <Text>
+            activePost: {post.text} comments? {comments.length}
+          </Text>
         </Content>
       </Container>
     );
