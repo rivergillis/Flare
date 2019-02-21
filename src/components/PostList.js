@@ -1,6 +1,15 @@
 import React, { Component } from 'react';
-import { TouchableOpacity} from 'react-native';
-import { Container, Content, List, ListItem, Text, Button, Card, Body } from 'native-base';
+import { TouchableOpacity } from 'react-native';
+import {
+  Container,
+  Content,
+  List,
+  ListItem,
+  Text,
+  Button,
+  Card,
+  Body,
+} from 'native-base';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import SimpleHeader from './common/SimpleHeader';
@@ -21,11 +30,10 @@ class PostList extends Component {
     navigation.navigate('CreatePostView');
   };
 
-  onPostPress = (post) => {
-    const { navigation } = this.props;  
-    navigation.navigate('PostView', {...post.text}
-    );
-  }
+  onPostPress = post => {
+    const { navigation } = this.props;
+    navigation.navigate('PostView', { ...post.text });
+  };
 
   // TODO: Make these clickable and send to the PostView page passing along the
   // post itself as a parameter. See https://reactnavigation.org/docs/en/params.html
@@ -34,11 +42,9 @@ class PostList extends Component {
     <ListItem key={post.text}>
       <TouchableOpacity key={post.text} onPress={this.onPostPress}>
         <Card pointerEvents="none">
-              <Body>
-                  <Text>
-                    {post.text}
-                  </Text>   
-              </Body>
+          <Body>
+            <Text>{post.text}</Text>
+          </Body>
         </Card>
       </TouchableOpacity>
     </ListItem>
