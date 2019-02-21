@@ -2,6 +2,7 @@ import firebase from 'firebase';
 // eslint-disable-next-line
 import firestore from 'firebase/firestore';
 import * as types from './types';
+import { fetchPostComments } from './postComments';
 
 // These are help functions, don't export them
 const getPostListSuccess = (dispatch, querySnapshot) => {
@@ -14,8 +15,10 @@ const getPostListSuccess = (dispatch, querySnapshot) => {
     // Store the firebase document ID with each post, so that we can easily grab comments.
     const postDocId = doc.id;
     data.docId = postDocId;
-
     posts.push(data);
+
+    // Since we have the posts here, lets go ahead and get the comments
+    fetchPostComments(dispatch, postDocId);
   });
 
   dispatch({ type: types.FETCH_POST_SUCCESS, payload: posts });

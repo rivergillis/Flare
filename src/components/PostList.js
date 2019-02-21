@@ -48,7 +48,7 @@ class PostList extends Component {
       <Right>
         <View style={{ flexDirection: 'row' }}>
           <Icon name="md-repeat" />
-          <Text>{' 23    '}</Text>
+          <Text>{` ${post.reposts}    `}</Text>
           <Icon name="md-chatboxes" />
           <Text>{' 23'}</Text>
         </View>
