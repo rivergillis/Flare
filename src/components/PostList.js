@@ -3,11 +3,10 @@ import { TouchableOpacity } from 'react-native';
 import {
   Container,
   Content,
-  List,
-  ListItem,
   Text,
   Button,
   Card,
+  CardItem,
   Body,
 } from 'native-base';
 import { bindActionCreators } from 'redux';
@@ -32,22 +31,18 @@ class PostList extends Component {
 
   onPostPress = post => {
     const { navigation } = this.props;
-    navigation.navigate('PostView', { ...post.text });
+    navigation.navigate('PostView', { post });
   };
 
   // TODO: Make these clickable and send to the PostView page passing along the
   // post itself as a parameter. See https://reactnavigation.org/docs/en/params.html
   // TODO: Fix styling for post cards
   renderPost = post => (
-    <ListItem key={post.text}>
-      <TouchableOpacity key={post.text} onPress={this.onPostPress}>
-        <Card pointerEvents="none">
-          <Body>
-            <Text>{post.text}</Text>
-          </Body>
-        </Card>
-      </TouchableOpacity>
-    </ListItem>
+    <CardItem key={post.text} button onPress={() => this.onPostPress(post)}>
+      <Body>
+        <Text>{post.text}</Text>
+      </Body>
+    </CardItem>
   );
 
   render() {
@@ -69,7 +64,7 @@ class PostList extends Component {
       <Container>
         <SimpleHeader title="Flare Feed" />
         <Content>
-          <List>{posts.map(post => this.renderPost(post))}</List>
+          <Card>{posts.map(post => this.renderPost(post))}</Card>
           <Button onPress={this.onMakePostButtonPress}>
             <Text>Make Post</Text>
           </Button>

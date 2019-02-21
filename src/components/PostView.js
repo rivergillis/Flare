@@ -1,40 +1,22 @@
 import React, { Component } from 'react';
-import { Container, Content, List, ListItem, Text, Button } from 'native-base';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
+import { Container, Content, Text } from 'native-base';
 import SimpleHeader from './common/SimpleHeader';
 
-// Import the redux actions
-import * as PostListActions from '../actions/postList';
-
 class PostView extends Component {
-  componentDidMount() {}
   render() {
-    // const { navigation } = this.props;
-    const { text } = this.props.navigation.state.params;
+    const { navigation } = this.props;
+    const post = navigation.getParam('post', null);
+
     return (
       <Container>
-      <SimpleHeader title="Flare Post" />
+        <SimpleHeader title="Flare Post" />
         <Content>
-          <Text>activePost: {text} </Text>
+          <Text>activePost: {post.text} </Text>
         </Content>
-    </Container>    
-    );}
-}
-
-function mapStateToProps(state) {
-  return {
-    posts: state.PostViewReducer.posts,
-    loadingPostList: state.PostViewReducer.loadingPostList,
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators(PostListActions, dispatch);
+      </Container>
+    );
+  }
 }
 
 // connect everything and export the component
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(PostView);
+export default PostView;
