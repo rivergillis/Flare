@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { TouchableOpacity } from 'react-native';
+import { View } from 'react-native';
 import {
   Container,
   Content,
@@ -7,7 +7,8 @@ import {
   Button,
   Card,
   CardItem,
-  Body,
+  Icon,
+  Right,
 } from 'native-base';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -34,9 +35,8 @@ class PostList extends Component {
     navigation.navigate('PostView', { post });
   };
 
-  // TODO: Make these clickable and send to the PostView page passing along the
-  // post itself as a parameter. See https://reactnavigation.org/docs/en/params.html
-  // TODO: Fix styling for post cards
+  // TODO: Use a better key
+  // TODO: Fix these styles
   renderPost = post => (
     <CardItem
       key={post.text}
@@ -44,9 +44,15 @@ class PostList extends Component {
       bordered
       onPress={() => this.onPostPress(post)}
     >
-      <Body>
-        <Text>{post.text}</Text>
-      </Body>
+      <Text>{post.text}</Text>
+      <Right>
+        <View style={{ flexDirection: 'row' }}>
+          <Icon name="md-repeat" />
+          <Text>{' 23    '}</Text>
+          <Icon name="md-chatboxes" />
+          <Text>{' 23'}</Text>
+        </View>
+      </Right>
     </CardItem>
   );
 
