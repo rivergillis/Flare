@@ -8,6 +8,7 @@ import {
   Item,
   Input,
   Label,
+  Toast,
 } from 'native-base';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -17,20 +18,30 @@ import * as AuthActions from '../actions/auth';
 
 class LoginPage extends Component {
   state = {
-    username: 'test@test.com',
+    email: 'test@test.com',
     password: 'password',
+  };
+
+  componentDidUpdate = () => {
+    const { auth, ackLoginFail } = this.props;
+    if (auth.user) {
+      const { navigation } = this.props;
+      navigation.navigate('PostList');
+    } else if (auth.failedLogin) {
+      Toast.show({ text: 'Login failed!', buttonText: 'Okay' });
+      ackLoginFail();
+    }
   };
 
   // Just log in for now
   onLoginPress = () => {
     const { loginUser } = this.props;
-    loginUser();
-    // const { navigation } = this.props;
-    // navigation.navigate('PostList');
+    const { email, password } = this.state;
+    loginUser(email, password);
   };
 
   render() {
-    const { username, password } = this.state;
+    const { email, password } = this.state;
     const { auth } = this.props;
 
     const loginText = auth.loggingIn ? 'Logging in...' : 'Log in';
@@ -41,10 +52,10 @@ class LoginPage extends Component {
         <Content>
           <Form>
             <Item floatingLabel>
-              <Label>Username</Label>
+              <Label>Email</Label>
               <Input
-                value={username}
-                onChangeText={text => this.setState({ username: text })}
+                value={email}
+                onChangeText={text => this.setState({ email: text })}
               />
             </Item>
             <Item floatingLabel last>
