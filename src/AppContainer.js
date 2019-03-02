@@ -1,5 +1,6 @@
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 import LoginPage from './components/LoginPage';
+import SignupPage from './components/SignupPage';
 import CreatePostView from './components/CreatePostView';
 import PostList from './components/PostList';
 import PostView from './components/PostView';
@@ -9,11 +10,14 @@ const AppNavigator = createStackNavigator(
     Login: {
       screen: LoginPage,
     },
+    Signup: {
+      screen: SignupPage,
+    },
     PostList: {
       screen: PostList,
     },
     PostView: {
-      screen: PostView, 
+      screen: PostView,
     },
     CreatePostView: {
       screen: CreatePostView,

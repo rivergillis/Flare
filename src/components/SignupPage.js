@@ -16,10 +16,10 @@ import SimpleHeader from './common/SimpleHeader';
 
 import * as AuthActions from '../actions/auth';
 
-class LoginPage extends Component {
+class SignupPage extends Component {
   state = {
-    email: 'test@test.com',
-    password: 'password',
+    email: '',
+    password: '',
   };
 
   componentDidUpdate = () => {
@@ -27,33 +27,27 @@ class LoginPage extends Component {
     if (auth.user) {
       const { navigation } = this.props;
       navigation.navigate('PostList');
-    } else if (auth.failedLogin) {
-      Toast.show({ text: 'Login failed!', buttonText: 'Okay' });
+    } else if (auth.failedCreatingUser) {
+      Toast.show({ text: 'Could not sign up :(', buttonText: 'Okay' });
       ackLoginFail();
     }
   };
 
-  // Just log in for now
-  onLoginPress = () => {
-    const { loginUser } = this.props;
-    const { email, password } = this.state;
-    loginUser(email, password);
-  };
-
   onSignupPress = () => {
-    const { navigation } = this.props;
-    navigation.navigate('Signup');
+    const { createUserAndLogin } = this.props;
+    const { email, password } = this.state;
+    createUserAndLogin(email, password);
   };
 
   render() {
     const { email, password } = this.state;
     const { auth } = this.props;
 
-    const loginText = auth.loggingIn ? 'Logging in...' : 'Log in';
+    const signupText = auth.creatingUser ? 'Creating user...' : 'Sign up';
 
     return (
       <Container>
-        <SimpleHeader title="Flare - Login" />
+        <SimpleHeader title="Sign up" />
         <Content>
           <Form>
             <Item floatingLabel>
@@ -72,15 +66,8 @@ class LoginPage extends Component {
               />
             </Item>
           </Form>
-          <Button onPress={this.onLoginPress} disabled={auth.loggingIn}>
-            <Text>{loginText}</Text>
-          </Button>
-          <Button
-            bordered
-            onPress={this.onSignupPress}
-            disabled={auth.loggingIn}
-          >
-            <Text>Sign up</Text>
+          <Button onPress={this.onSignupPress} disabled={auth.creatingUser}>
+            <Text>{signupText}</Text>
           </Button>
         </Content>
       </Container>
@@ -101,4 +88,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(LoginPage);
+)(SignupPage);

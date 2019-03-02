@@ -1,12 +1,6 @@
 import firebase from 'firebase';
 import * as types from './types';
 
-// firebase
-//   .auth()
-//   .createUserWithEmailAndPassword(email, password)
-//   .then(user => ...)
-//   .catch(error => console.log(error))
-
 export const ackLoginFail = () => dispatch => {
   dispatch({ type: types.ACK_LOGIN_FAIL });
 };
@@ -24,5 +18,18 @@ export const loginUser = (email, password) => dispatch => {
     .catch(error => {
       console.log(error);
       dispatch({ type: types.LOGIN_FAIL });
+    });
+};
+
+// TODO: Save this in the database somewhere?
+export const createUserAndLogin = (email, password) => dispatch => {
+  dispatch({ type: types.BEGIN_CREATE_USER });
+  firebase
+    .auth()
+    .createUserWithEmailAndPassword(email, password)
+    .then(user => loginUserSuccess(dispatch, user))
+    .catch(error => {
+      console.log(error);
+      dispatch({ type: types.CREATE_USER_FAIL });
     });
 };
