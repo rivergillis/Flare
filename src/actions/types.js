@@ -9,6 +9,7 @@ export const FETCH_POST_COMMENTS_SUCCESS = 'fetch_post_comments_success';
 
 export const BEGIN_LOGIN = 'begin_login';
 export const LOGIN_SUCCESS = 'login_success';
+export const FETCH_USER_DATA_SUCCESS = 'fetch_user_data_success';
 export const LOGIN_FAIL = 'login_fail';
 export const ACK_LOGIN_FAIL = 'ack_login_fail';
 

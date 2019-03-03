@@ -3,6 +3,7 @@ import * as types from '../actions/types';
 // if we have no state, use INITIAL_STATE
 const INITIAL_STATE = {
   user: null,
+  userData: null,
   loggingIn: false,
   failedLogin: false,
   creatingUser: false,
@@ -15,9 +16,15 @@ const AuthReducer = (state = INITIAL_STATE, action) => {
       return { ...state, loggingIn: true, failedLogin: false };
     case types.LOGIN_SUCCESS:
       return {
-        ...INITIAL_STATE,
+        ...state,
         user: action.payload,
+        loggingIn: false,
+        failedLogin: false,
+        creatingUser: false,
+        failedCreatingUser: false,
       };
+    case types.FETCH_USER_DATA_SUCCESS:
+      return { ...state, userData: action.payload };
     case types.LOGIN_FAIL:
       return { ...state, loggingIn: false, failedLogin: true };
     case types.ACK_LOGIN_FAIL:

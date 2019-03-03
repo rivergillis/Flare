@@ -65,8 +65,8 @@ class PostList extends Component {
   };
 
   render() {
-    const { posts, loadingPostList } = this.props;
-    console.log(posts);
+    const { posts, loadingPostList, userData } = this.props;
+    console.log(userData);
 
     if (loadingPostList) {
       return (
@@ -98,6 +98,7 @@ class PostList extends Component {
 // The returned object becomes part of the component's "this.props"
 function mapStateToProps(state) {
   return {
+    userData: state.AuthReducer.userData,
     posts: state.PostListReducer.posts,
     loadingPostList: state.PostListReducer.loadingPostList,
     postComments: state.PostListReducer.postComments,
