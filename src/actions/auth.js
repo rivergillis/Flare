@@ -47,13 +47,26 @@ export const loginUser = (email, password) => dispatch => {
     });
 };
 
+const createUserSuccess = async (dispatch, user, username) => {
+  const userId = firebase.auth().currentUser.uid;
+  try {
+    await firebase
+      .firestore()
+      .collection('users')
+      .add({ userId, username });
+    await loginUserSuccess(dispatch, user);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 // TODO: Save this in the database somewhere?
-export const createUserAndLogin = (email, password) => dispatch => {
+export const createUserAndLogin = (email, password, username) => dispatch => {
   dispatch({ type: types.BEGIN_CREATE_USER });
   firebase
     .auth()
     .createUserWithEmailAndPassword(email, password)
-    .then(user => loginUserSuccess(dispatch, user))
+    .then(user => createUserSuccess(dispatch, user, username))
     .catch(error => {
       console.log(error);
       dispatch({ type: types.CREATE_USER_FAIL });

@@ -20,6 +20,7 @@ class SignupPage extends Component {
   state = {
     email: '',
     password: '',
+    username: '',
   };
 
   componentDidUpdate = () => {
@@ -35,12 +36,12 @@ class SignupPage extends Component {
 
   onSignupPress = () => {
     const { createUserAndLogin } = this.props;
-    const { email, password } = this.state;
-    createUserAndLogin(email, password);
+    const { email, password, username } = this.state;
+    createUserAndLogin(email, password, username);
   };
 
   render() {
-    const { email, password } = this.state;
+    const { email, password, username } = this.state;
     const { auth } = this.props;
 
     const signupText = auth.creatingUser ? 'Creating user...' : 'Sign up';
@@ -50,6 +51,13 @@ class SignupPage extends Component {
         <SimpleHeader title="Sign up" />
         <Content>
           <Form>
+            <Item floatingLabel>
+              <Label>Username</Label>
+              <Input
+                value={username}
+                onChangeText={text => this.setState({ username: text })}
+              />
+            </Item>
             <Item floatingLabel>
               <Label>Email</Label>
               <Input
