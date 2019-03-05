@@ -10,7 +10,7 @@ class PostView extends Component {
 
     return (
       <Container>
-        <SimpleHeader title="Flare Post" />
+        <SimpleHeader title="Flare Post" isBack navigation={navigation} />
         <Content>
           <Text>
             activePost: {post.text} comments? {comments.length}
