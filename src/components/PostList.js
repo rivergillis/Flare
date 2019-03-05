@@ -18,10 +18,36 @@ import SimpleHeader from './common/SimpleHeader';
 import * as PostListActions from '../actions/postList';
 
 class PostList extends Component {
+  state = {
+    currentGeo: null, // currentGeo.coords.lat
+    geoError: null,
+    lastPostFetch: 0,
+  };
+
   // Called as soon as the component is mounted.
   componentDidMount() {
     const { fetchPostList } = this.props;
-    fetchPostList();
+    const { lastPostFetch } = this.state;
+
+    // Set up a geolocation watcher that updates the post list whenever we get new coordinates
+    // Only fetches new posts every 3 seconds
+    this.watchId = navigator.geolocation.watchPosition(
+      position => {
+        this.setState({ currentGeo: position, geoError: null });
+
+        if (position.timestamp - lastPostFetch > 3000) {
+          this.setState({ lastPostFetch: new Date().getTime() });
+          fetchPostList();
+        }
+      },
+      error => this.setState({ geoError: error.message }),
+      {
+        enableHighAccuracy: true,
+        timeout: 20000,
+        maximumAge: 1000,
+        distanceFilter: 10,
+      }
+    );
   }
 
   // Arrow functions auto-bind
@@ -65,19 +91,7 @@ class PostList extends Component {
   };
 
   render() {
-    const { posts, loadingPostList, userData, navigation } = this.props;
-    console.log(userData);
-
-    if (loadingPostList) {
-      return (
-        <Container>
-          <SimpleHeader title="Flare Feed" />
-          <Content>
-            <Text>Fetching posts...</Text>
-          </Content>
-        </Container>
-      );
-    }
+    const { posts, navigation } = this.props;
 
     return (
       <Container>
