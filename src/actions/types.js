@@ -15,3 +15,6 @@ export const ACK_LOGIN_FAIL = 'ack_login_fail';
 
 export const BEGIN_CREATE_USER = 'begin_create_user';
 export const CREATE_USER_FAIL = 'create_user_fail';
+
+export const SAVE_USER_DATA = 'save_user_data';
+export const SAVE_USER_DATA_SUCCESS = 'save_user_data_success';

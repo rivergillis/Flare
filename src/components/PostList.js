@@ -65,7 +65,7 @@ class PostList extends Component {
   };
 
   render() {
-    const { posts, loadingPostList, userData } = this.props;
+    const { posts, loadingPostList, userData, navigation } = this.props;
     console.log(userData);
 
     if (loadingPostList) {
@@ -81,7 +81,11 @@ class PostList extends Component {
 
     return (
       <Container>
-        <SimpleHeader title="Flare Feed" />
+        <SimpleHeader
+          title="Flare Feed"
+          icon="ios-settings"
+          onPress={() => navigation.navigate('Settings')}
+        />
         <Content>
           <Card>{posts.map(post => this.renderPost(post))}</Card>
           <Button onPress={this.onMakePostButtonPress}>

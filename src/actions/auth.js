@@ -72,3 +72,22 @@ export const createUserAndLogin = (email, password, username) => dispatch => {
       dispatch({ type: types.CREATE_USER_FAIL });
     });
 };
+
+const saveUserDataSuccess = (dispatch, newUserData) => {
+  console.log('updated the user data');
+  dispatch({ type: types.SAVE_USER_DATA_SUCCESS, payload: newUserData });
+};
+
+export const saveUserData = (oldUserData, newUserData) => dispatch => {
+  dispatch({ type: types.SAVE_USER_DATA });
+  console.log('test');
+
+  const updatedUserData = { ...oldUserData, ...newUserData };
+  firebase
+    .firestore()
+    .collection('users')
+    .doc(oldUserData.docId)
+    .set(updatedUserData)
+    .then(saveUserDataSuccess(dispatch, updatedUserData))
+    .catch(err => console.log(err));
+};

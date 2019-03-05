@@ -4,6 +4,7 @@ import SignupPage from './components/SignupPage';
 import CreatePostView from './components/CreatePostView';
 import PostList from './components/PostList';
 import PostView from './components/PostView';
+import SettingsPage from './components/SettingsPage';
 
 const AppNavigator = createStackNavigator(
   {
@@ -21,6 +22,9 @@ const AppNavigator = createStackNavigator(
     },
     CreatePostView: {
       screen: CreatePostView,
+    },
+    Settings: {
+      screen: SettingsPage,
     },
   },
   // This will hide the automatically-added header so that we can use our own
