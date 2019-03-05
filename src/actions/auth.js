@@ -80,7 +80,6 @@ const saveUserDataSuccess = (dispatch, newUserData) => {
 
 export const saveUserData = (oldUserData, newUserData) => dispatch => {
   dispatch({ type: types.SAVE_USER_DATA });
-  console.log('test');
 
   const updatedUserData = { ...oldUserData, ...newUserData };
   firebase
