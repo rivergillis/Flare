@@ -17,6 +17,8 @@ import SimpleHeader from './common/SimpleHeader';
 // Import the redux actions
 import * as PostListActions from '../actions/postList';
 
+// TODO: fetch posts using geohashes with ngeohash
+
 class PostList extends Component {
   state = {
     currentGeo: null, // currentGeo.coords.lat
