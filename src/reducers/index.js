@@ -1,11 +1,13 @@
 import { combineReducers } from 'redux';
 import PostListReducer from './PostListReducer';
 import AuthReducer from './AuthReducer';
+import MakePostReducer from './MakePostReducer';
 
 // Combine all the reducers together into one big reducer.
 const rootReducer = combineReducers({
   PostListReducer,
   AuthReducer,
+  MakePostReducer,
   // ,[ANOTHER REDUCER], [ANOTHER REDUCER] ....
 });
 

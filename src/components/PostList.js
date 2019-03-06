@@ -17,11 +17,11 @@ import SimpleHeader from './common/SimpleHeader';
 // Import the redux actions
 import * as PostListActions from '../actions/postList';
 
-// TODO: fetch posts using geohashes with ngeohash
+// TODO: Use geofirestore to fetch posts https://geofirestore.com
 
 class PostList extends Component {
   state = {
-    currentGeo: null, // currentGeo.coords.lat
+    currentGeo: null, // currentGeo.coords.latitude
     geoError: null,
     lastPostFetch: 0,
   };
@@ -52,10 +52,10 @@ class PostList extends Component {
     );
   }
 
-  // Arrow functions auto-bind
   onMakePostButtonPress = () => {
     const { navigation } = this.props;
-    navigation.navigate('CreatePostView');
+    const { currentGeo } = this.state;
+    navigation.navigate('CreatePostView', { currentGeo });
   };
 
   onPostPress = post => {
@@ -94,6 +94,7 @@ class PostList extends Component {
 
   render() {
     const { posts, navigation } = this.props;
+    // console.log(this.state);
 
     return (
       <Container>
