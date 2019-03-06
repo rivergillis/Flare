@@ -28,18 +28,24 @@ class PostList extends Component {
 
   // Called as soon as the component is mounted.
   componentDidMount() {
-    const { fetchPostList } = this.props;
     const { lastPostFetch } = this.state;
 
     // Set up a geolocation watcher that updates the post list whenever we get new coordinates
-    // Only fetches new posts every 3 seconds
+    // Only fetches new posts every 10 seconds
     this.watchId = navigator.geolocation.watchPosition(
       position => {
         this.setState({ currentGeo: position, geoError: null });
 
-        if (position.timestamp - lastPostFetch > 3000) {
+        // TODO: This is broken, fix it.
+        if (position.timestamp - lastPostFetch > 10000) {
+          console.log(
+            `Location updated to (${position.coords.latitude}, ${
+              position.coords.longitude
+            })`
+          );
+
           this.setState({ lastPostFetch: new Date().getTime() });
-          fetchPostList();
+          this.updatePosts(position.coords.latitude, position.coords.longitude);
         }
       },
       error => this.setState({ geoError: error.message }),
@@ -92,9 +98,37 @@ class PostList extends Component {
     );
   };
 
+  updatePosts = (lat, lon) => {
+    const { fetchPostList } = this.props;
+    fetchPostList(lat, lon);
+  };
+
   render() {
     const { posts, navigation } = this.props;
-    // console.log(this.state);
+    const { geoError } = this.state;
+
+    if (geoError) {
+      return (
+        <Container>
+          <SimpleHeader
+            title="Flare Feed"
+            icon="ios-settings"
+            onPress={() => navigation.navigate('Settings')}
+          />
+          <Content>
+            <Text>Error getting location, make sure location data is on.</Text>
+            <Button
+              onPress={() => {
+                this.updatePosts(37.785834, 122.406417);
+                this.setState({ geoError: null });
+              }}
+            >
+              <Text>Debug: fetch posts</Text>
+            </Button>
+          </Content>
+        </Container>
+      );
+    }
 
     return (
       <Container>
