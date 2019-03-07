@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { StyleSheet } from 'react-native';
 import {
   Container,
   Content,
@@ -9,6 +10,7 @@ import {
   Input,
   Label,
   Toast,
+  View,
 } from 'native-base';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -16,6 +18,20 @@ import SimpleHeader from './common/SimpleHeader';
 
 import * as AuthActions from '../actions/auth';
 
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     justifyContent: 'center',
+//   },
+//   buttonContainer: {
+//     margin: 20,
+//   },
+//   alternativeLayoutButtonContainer: {
+//     margin: 20,
+//     flexDirection: 'row',
+//     justifyContent: 'space-between',
+//   },
+// });
 class LoginPage extends Component {
   state = {
     email: 'test@test.com',
@@ -49,15 +65,20 @@ class LoginPage extends Component {
     const { email, password } = this.state;
     const { auth } = this.props;
 
-    const loginText = auth.loggingIn ? 'Logging in...' : 'Log in';
+    const loginText = auth.loggingIn
+      ? 'Logging in...'
+      : '                     Log in';
 
     return (
       <Container>
         <SimpleHeader title="Flare - Login" />
         <Content>
+          <View style={{ alignItems: 'center', padding: 20 }}>
+            <Text>Flare</Text>
+          </View>
           <Form>
             <Item floatingLabel>
-              <Label>Email</Label>
+              <Label>Email or Username</Label>
               <Input
                 value={email}
                 onChangeText={text => this.setState({ email: text })}
@@ -72,15 +93,39 @@ class LoginPage extends Component {
               />
             </Item>
           </Form>
-          <Button onPress={this.onLoginPress} disabled={auth.loggingIn}>
+          <Button
+            onPress={this.onLoginPress}
+            disabled={auth.loggingIn}
+            style={{
+              backgroundColor: '#e21d16',
+              width: 260,
+              marginHorizontal: 50,
+            }}
+          >
             <Text>{loginText}</Text>
           </Button>
+
+          <View
+            style={{
+              justifyContent: 'center',
+              alignItems: 'center',
+              paddingTop: 275,
+            }}
+          >
+            <Text>Not a member?</Text>
+          </View>
+
           <Button
-            bordered
+            //bordered
             onPress={this.onSignupPress}
             disabled={auth.loggingIn}
+            style={{
+              backgroundColor: '#e21d16',
+              width: 260,
+              marginHorizontal: 50,
+            }}
           >
-            <Text>Sign up</Text>
+            <Text> Sign up</Text>
           </Button>
         </Content>
       </Container>
