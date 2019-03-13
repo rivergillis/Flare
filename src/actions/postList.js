@@ -42,7 +42,7 @@ export const fetchPostList = (lat, long) => dispatch => {
   // note: radius in km
   gfs
     .collection('posts')
-    .near({ center: new firebase.firestore.GeoPoint(lat, long), radius: 10000 })
+    .near({ center: new firebase.firestore.GeoPoint(lat, long), radius: 200 })
     .get()
     .then(querySnapshot => getPostListSuccess(dispatch, querySnapshot))
     .catch(error => getPostListFail(error));
