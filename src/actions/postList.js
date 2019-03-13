@@ -32,12 +32,15 @@ const getPostListFail = error => {
   console.log(error);
 };
 
-// Redux thunk lets use return a function that takes in dispatch as
-// an arg. Use this to keep the chain of requests going.
-export const fetchPostList = (lat, long, currentSubscription) => dispatch => {
+// Set up a subscription to watch for new posts.
+export const subscribeFetchPostList = (
+  lat,
+  long,
+  currentSubscription
+) => dispatch => {
   if (currentSubscription) {
     console.log('Cancelling old query subscription');
-    currentSubscription();
+    currentSubscription(); // Calling the function will cancel it.
   }
 
   const gfs = new GeoFirestore(firebase.firestore());
@@ -50,5 +53,5 @@ export const fetchPostList = (lat, long, currentSubscription) => dispatch => {
     querySnapshot => getPostListSuccess(dispatch, querySnapshot),
     error => getPostListFail(error)
   );
-  dispatch({ type: types.FETCH_POST_LIST, payload: subscription });
+  dispatch({ type: types.SUBSCRIBE_FETCH_POST_LIST, payload: subscription });
 };

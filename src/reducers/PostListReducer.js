@@ -13,7 +13,7 @@ const INITIAL_STATE = {
 
 const PostListReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case types.FETCH_POST_LIST:
+    case types.SUBSCRIBE_FETCH_POST_LIST:
       return { ...state, currentSubscription: action.payload };
     case types.FETCH_POST_SUCCESS:
       return { ...state, posts: action.payload };

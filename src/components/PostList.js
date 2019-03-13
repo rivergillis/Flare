@@ -23,7 +23,6 @@ class PostList extends Component {
   state = {
     currentGeo: null, // currentGeo.coords.latitude
     geoError: null,
-    lastPostFetch: 0,
   };
 
   // Called as soon as the component is mounted.
@@ -31,32 +30,29 @@ class PostList extends Component {
     const { lastPostFetch } = this.state;
 
     // Set up a geolocation watcher that updates the post list whenever we get new coordinates
-    // Only fetches new posts every 30 seconds
+    // TODO: Use a timer to do this manually every x seconds ?
     this.watchId = navigator.geolocation.watchPosition(
       position => {
         this.setState({ currentGeo: position, geoError: null });
+        console.log(
+          `Location updated to (${position.coords.latitude}, ${
+            position.coords.longitude
+          } after waiting ${(position.timestamp - lastPostFetch) / 1000}s)`
+        );
 
-        // TODO: This might not be needed? Just use the frequency
-        if (position.timestamp - lastPostFetch > 30000) {
-          console.log(
-            `Location updated to (${position.coords.latitude}, ${
-              position.coords.longitude
-            } after waiting ${(position.timestamp - lastPostFetch) / 1000}s)`
-          );
-
-          this.setState({ lastPostFetch: new Date().getTime() });
-          this.updatePosts(position.coords.latitude, position.coords.longitude);
-        } else {
-          console.log('Updated location, but did not fetch posts!');
-        }
+        this.setState({ lastPostFetch: new Date().getTime() });
+        this.resetFetchSubscription(
+          position.coords.latitude,
+          position.coords.longitude
+        );
       },
       error => this.setState({ geoError: error.message }),
       {
         enableHighAccuracy: true,
-        timeout: 20000,
+        timeout: 30000,
         maximumAge: 1000,
         distanceFilter: 10,
-        frequency: 30,
+        frequency: 30, // TODO this doesn't actually do anything
       }
     );
   }
@@ -101,12 +97,16 @@ class PostList extends Component {
     );
   };
 
-  updatePosts = (lat, lon) => {
-    const { fetchPostList, loadingPostList, currentSubscription } = this.props;
+  resetFetchSubscription = (lat, lon) => {
+    const {
+      subscribeFetchPostList,
+      loadingPostList,
+      currentSubscription,
+    } = this.props;
     if (loadingPostList) {
       return;
     }
-    fetchPostList(lat, lon, currentSubscription);
+    subscribeFetchPostList(lat, lon, currentSubscription);
   };
 
   render() {
@@ -125,7 +125,7 @@ class PostList extends Component {
             <Text>Error getting location, make sure location data is on.</Text>
             <Button
               onPress={() => {
-                this.updatePosts(37.785834, -122.406417);
+                this.resetFetchSubscription(37.785834, -122.406417);
                 this.setState({ geoError: null });
               }}
             >
