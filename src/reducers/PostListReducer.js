@@ -1,7 +1,11 @@
 import * as types from '../actions/types';
 
 // if we have no state, use INITIAL_STATE
-const INITIAL_STATE = { posts: [], loadingPostList: false, postComments: {} };
+const INITIAL_STATE = {
+  posts: [],
+  postComments: {},
+  currentSubscription: null,
+};
 
 // look at the action type
 // depending on the type, return A NEW STATE OBJECT
@@ -10,9 +14,9 @@ const INITIAL_STATE = { posts: [], loadingPostList: false, postComments: {} };
 const PostListReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case types.FETCH_POST_LIST:
-      return { ...state, loadingPostList: true };
+      return { ...state, currentSubscription: action.payload };
     case types.FETCH_POST_SUCCESS:
-      return { ...state, posts: action.payload, loadingPostList: false };
+      return { ...state, posts: action.payload };
     case types.FETCH_POST_COMMENTS_SUCCESS: {
       // TODO: Put these directly into the posts object
       const newPostComments = { ...state.postComments, ...action.payload };

@@ -102,11 +102,11 @@ class PostList extends Component {
   };
 
   updatePosts = (lat, lon) => {
-    const { fetchPostList, loadingPostList } = this.props;
+    const { fetchPostList, loadingPostList, currentSubscription } = this.props;
     if (loadingPostList) {
       return;
     }
-    fetchPostList(lat, lon);
+    fetchPostList(lat, lon, currentSubscription);
   };
 
   render() {
@@ -161,6 +161,7 @@ function mapStateToProps(state) {
   return {
     userData: state.AuthReducer.userData,
     posts: state.PostListReducer.posts,
+    currentSubscription: state.PostListReducer.currentSubscription,
     loadingPostList: state.PostListReducer.loadingPostList,
     postComments: state.PostListReducer.postComments,
   };
