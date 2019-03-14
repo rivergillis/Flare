@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet,TouchableWithoutFeedback  } from 'react-native';
 import {
   Container,
   Content,
@@ -18,20 +18,51 @@ import SimpleHeader from './common/SimpleHeader';
 
 import * as AuthActions from '../actions/auth';
 
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     justifyContent: 'center',
-//   },
-//   buttonContainer: {
-//     margin: 20,
-//   },
-//   alternativeLayoutButtonContainer: {
-//     margin: 20,
-//     flexDirection: 'row',
-//     justifyContent: 'space-between',
-//   },
-// });
+const stylesLogo = StyleSheet.create({
+  flareLogo: {
+    color: 'red',
+    fontWeight: 'bold',
+    fontSize: 60,
+  },
+});
+
+const stylesLogin = StyleSheet.create({
+  testCont: {
+    paddingTop: 30,
+    alignItems: 'center',
+    // flex: 1,
+    // justifyContent: 'center',
+  },
+  buttonTest: {
+    marginBottom: 30,
+    width: 260,
+    alignItems: 'center',
+    backgroundColor: '#e21d16',
+  },
+  buttonTextTest: {
+    padding: 20,
+    color: 'white',
+  },
+});
+const stylesSignUp = StyleSheet.create({
+  testCont2: {
+    paddingTop: 10,
+    alignItems: 'center',
+    // flex: 1,
+    // justifyContent: 'center',
+  },
+  buttonTest2: {
+    marginBottom: 30,
+    width: 260,
+    alignItems: 'center',
+    backgroundColor: '#e21d16',
+  },
+  buttonTextTest2: {
+    padding: 20,
+    color: 'white',
+  },
+});
+
 class LoginPage extends Component {
   state = {
     email: 'test@test.com',
@@ -67,14 +98,14 @@ class LoginPage extends Component {
 
     const loginText = auth.loggingIn
       ? 'Logging in...'
-      : '                     Log in';
+      : 'Login';
 
     return (
       <Container>
         <SimpleHeader title="Flare - Login" />
         <Content>
-          <View style={{ alignItems: 'center', padding: 20 }}>
-            <Text>Flare</Text>
+          <View style={{ alignItems: 'center', padding: 30 }}>
+            <Text style = {stylesLogo.flareLogo}>Flare</Text>
           </View>
           <Form>
             <Item floatingLabel>
@@ -93,7 +124,7 @@ class LoginPage extends Component {
               />
             </Item>
           </Form>
-          <Button
+          {/* <Button
             onPress={this.onLoginPress}
             disabled={auth.loggingIn}
             style={{
@@ -103,19 +134,28 @@ class LoginPage extends Component {
             }}
           >
             <Text>{loginText}</Text>
-          </Button>
+          </Button> */}
+          <View style = {stylesLogin.testCont}>
+          <TouchableWithoutFeedback
+            onPress={this.onLoginPress}
+            >
+            <View style = {stylesLogin.buttonTest}>
+            <Text style={stylesLogin.buttonTextTest}>Login</Text>
+            </View>
+            </TouchableWithoutFeedback>
+          </View>
 
           <View
             style={{
               justifyContent: 'center',
               alignItems: 'center',
-              paddingTop: 275,
+              paddingTop: 195,
             }}
           >
             <Text>Not a member?</Text>
           </View>
 
-          <Button
+          {/* <Button
             //bordered
             onPress={this.onSignupPress}
             disabled={auth.loggingIn}
@@ -126,7 +166,17 @@ class LoginPage extends Component {
             }}
           >
             <Text> Sign up</Text>
-          </Button>
+          </Button> */}
+          <View style = {stylesSignUp.testCont2}>
+          <TouchableWithoutFeedback
+            onPress={this.onSignupPress}
+            >
+            <View style = {stylesSignUp.buttonTest2}>
+            <Text style={stylesSignUp.buttonTextTest2}>Sign up</Text>
+            </View>
+            </TouchableWithoutFeedback>
+          </View>
+
         </Content>
       </Container>
     );
