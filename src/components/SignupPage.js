@@ -42,13 +42,13 @@ class SignupPage extends Component {
 
   render() {
     const { email, password, username } = this.state;
-    const { auth } = this.props;
+    const { auth, navigation } = this.props;
 
     const signupText = auth.creatingUser ? 'Creating user...' : 'Sign up';
 
     return (
       <Container>
-        <SimpleHeader title="Sign up" />
+        <SimpleHeader title="Sign up" isBack navigation={navigation} />
         <Content>
           <Form>
             <Item floatingLabel>

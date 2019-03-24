@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet,TouchableWithoutFeedback  } from 'react-native';
+import { StyleSheet, TouchableWithoutFeedback } from 'react-native';
 import {
   Container,
   Content,
@@ -96,16 +96,14 @@ class LoginPage extends Component {
     const { email, password } = this.state;
     const { auth } = this.props;
 
-    const loginText = auth.loggingIn
-      ? 'Logging in...'
-      : 'Login';
+    const loginText = auth.loggingIn ? 'Logging in...' : 'Login';
 
     return (
       <Container>
-        <SimpleHeader title="Flare - Login" />
+        <SimpleHeader title="Login" />
         <Content>
           <View style={{ alignItems: 'center', padding: 30 }}>
-            <Text style = {stylesLogo.flareLogo}>Flare</Text>
+            <Text style={stylesLogo.flareLogo}>Flare</Text>
           </View>
           <Form>
             <Item floatingLabel>
@@ -135,13 +133,14 @@ class LoginPage extends Component {
           >
             <Text>{loginText}</Text>
           </Button> */}
-          <View style = {stylesLogin.testCont}>
-          <TouchableWithoutFeedback
-            onPress={this.onLoginPress}
+          <View style={stylesLogin.testCont}>
+            <TouchableWithoutFeedback
+              onPress={this.onLoginPress}
+              disabled={auth.loggingIn}
             >
-            <View style = {stylesLogin.buttonTest}>
-            <Text style={stylesLogin.buttonTextTest}>Login</Text>
-            </View>
+              <View style={stylesLogin.buttonTest}>
+                <Text style={stylesLogin.buttonTextTest}>{loginText}</Text>
+              </View>
             </TouchableWithoutFeedback>
           </View>
 
@@ -167,16 +166,13 @@ class LoginPage extends Component {
           >
             <Text> Sign up</Text>
           </Button> */}
-          <View style = {stylesSignUp.testCont2}>
-          <TouchableWithoutFeedback
-            onPress={this.onSignupPress}
-            >
-            <View style = {stylesSignUp.buttonTest2}>
-            <Text style={stylesSignUp.buttonTextTest2}>Sign up</Text>
-            </View>
+          <View style={stylesSignUp.testCont2}>
+            <TouchableWithoutFeedback onPress={this.onSignupPress}>
+              <View style={stylesSignUp.buttonTest2}>
+                <Text style={stylesSignUp.buttonTextTest2}>Sign up</Text>
+              </View>
             </TouchableWithoutFeedback>
           </View>
-
         </Content>
       </Container>
     );

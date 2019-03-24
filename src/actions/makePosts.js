@@ -18,8 +18,7 @@ export const createPost = (postText, geoLat, geoLong) => dispatch => {
   const docData = {
     ownerId: userId, // todo: might need to use regular firestore to add this to the root of the doc for querying?
     createdOn: new Date(),
-    radius: 5,
-    reposts: 0,
+    reposts: 1,
     text: postText,
   };
 
