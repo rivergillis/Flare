@@ -157,8 +157,6 @@ class PostList extends Component {
     const { posts, navigation, initialLoad } = this.props;
     const { geoError } = this.state;
 
-    console.log(initialLoad);
-
     if (geoError) {
       return (
         <Container>

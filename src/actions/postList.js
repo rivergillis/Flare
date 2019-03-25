@@ -64,6 +64,10 @@ const filterPostList = (dispatch, userLat, userLong, querySnapshot) => {
   console.log(
     `Done filtering posts in ${new Date().getMilliseconds() - startTime}ms`
   );
+
+  // Sort the posts by date
+  posts.sort((a, b) => b.createdOn.toDate() - a.createdOn.toDate());
+
   dispatch({ type: types.FETCH_POST_SUCCESS, payload: posts });
 };
 
