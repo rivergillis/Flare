@@ -20,6 +20,13 @@ import SimpleHeader from './common/SimpleHeader';
 import * as PostListActions from '../actions/postList';
 
 const styles = StyleSheet.create({
+  cardBodyStyle: {
+    flexBasis: '50%',
+  },
+  cardIconsStyle: {
+    flexDirection: 'row',
+    flexBasis: '50%',
+  },
   timePostedStyle: {
     color: '#5e5e5e',
     fontStyle: 'italic',
@@ -81,21 +88,21 @@ class PostList extends Component {
   // TODO: Use a better key
   // TODO: Fix these styles
   renderPost = post => {
-    const { postComments } = this.props;
+    const { postComments, userData } = this.props;
     const comments = postComments[post.docId];
     const numComments = comments ? comments.length : 0;
 
     return (
-      <Card key={post.text}>
+      <Card key={post.text + userData.username}>
         <CardItem button bordered onPress={() => this.onPostPress(post)}>
-          <Body>
+          <Body style={styles.cardBodyStyle}>
             <Text>{post.text}</Text>
             <Text style={styles.timePostedStyle}>
               Posted <TimeAgo time={post.createdOn.toDate()} />
             </Text>
           </Body>
           <Right>
-            <View style={{ flexDirection: 'row' }}>
+            <View style={styles.cardIconsStyle}>
               <Icon name="md-repeat" />
               <Text>{` ${post.reposts}    `}</Text>
               <Icon name="md-chatboxes" />
