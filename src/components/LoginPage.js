@@ -42,6 +42,12 @@ const stylesLogin = StyleSheet.create({
     padding: 20,
     color: 'white',
   },
+  buttonDisabled: {
+    marginBottom: 30,
+    width: 260,
+    alignItems: 'center',
+    backgroundColor: '#a0a0a0',
+  },
 });
 const stylesSignUp = StyleSheet.create({
   testCont2: {
@@ -137,7 +143,13 @@ class LoginPage extends Component {
               onPress={this.onLoginPress}
               disabled={auth.loggingIn}
             >
-              <View style={stylesLogin.buttonTest}>
+              <View
+                style={
+                  auth.loggingIn
+                    ? stylesLogin.buttonDisabled
+                    : stylesLogin.buttonTest
+                }
+              >
                 <Text style={stylesLogin.buttonTextTest}>{loginText}</Text>
               </View>
             </TouchableWithoutFeedback>
