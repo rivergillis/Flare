@@ -11,6 +11,7 @@ import {
   Right,
   Body,
   View,
+  Fab,
 } from 'native-base';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -178,10 +179,18 @@ class PostList extends Component {
         />
         <Content>
           {posts.map(post => this.renderPost(post))}
-          <Button onPress={this.onMakePostButtonPress}>
-            <Text>Make Post</Text>
-          </Button>
+          <View style={{ paddingTop: '20%' }} />
         </Content>
+        <View>
+          <Fab
+            position="bottomRight"
+            containerStyle={{}}
+            style={{ backgroundColor: '#e21d16' }}
+            onPress={this.onMakePostButtonPress}
+          >
+            <Icon name="md-create" />
+          </Fab>
+        </View>
       </Container>
     );
   }
