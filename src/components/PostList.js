@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import {
   Container,
   Content,
@@ -9,15 +9,22 @@ import {
   CardItem,
   Icon,
   Right,
+  Body,
+  View,
 } from 'native-base';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import TimeAgo from 'react-native-timeago';
 import SimpleHeader from './common/SimpleHeader';
-
 // Import the redux actions
 import * as PostListActions from '../actions/postList';
 
-// TODO: Use geofirestore to fetch posts https://geofirestore.com
+const styles = StyleSheet.create({
+  timePostedStyle: {
+    color: '#5e5e5e',
+    fontStyle: 'italic',
+  },
+});
 
 class PostList extends Component {
   state = {
@@ -77,23 +84,26 @@ class PostList extends Component {
     const { postComments } = this.props;
     const comments = postComments[post.docId];
     const numComments = comments ? comments.length : 0;
+
     return (
-      <CardItem
-        key={post.text}
-        button
-        bordered
-        onPress={() => this.onPostPress(post)}
-      >
-        <Text>{post.text}</Text>
-        <Right>
-          <View style={{ flexDirection: 'row' }}>
-            <Icon name="md-repeat" />
-            <Text>{` ${post.reposts}    `}</Text>
-            <Icon name="md-chatboxes" />
-            <Text>{` ${numComments}`}</Text>
-          </View>
-        </Right>
-      </CardItem>
+      <Card key={post.text}>
+        <CardItem button bordered onPress={() => this.onPostPress(post)}>
+          <Body>
+            <Text>{post.text}</Text>
+            <Text style={styles.timePostedStyle}>
+              Posted <TimeAgo time={post.createdOn.toDate()} />
+            </Text>
+          </Body>
+          <Right>
+            <View style={{ flexDirection: 'row' }}>
+              <Icon name="md-repeat" />
+              <Text>{` ${post.reposts}    `}</Text>
+              <Icon name="md-chatboxes" />
+              <Text>{` ${numComments}`}</Text>
+            </View>
+          </Right>
+        </CardItem>
+      </Card>
     );
   };
 
@@ -144,7 +154,7 @@ class PostList extends Component {
           onPress={() => navigation.navigate('Settings')}
         />
         <Content>
-          <Card>{posts.map(post => this.renderPost(post))}</Card>
+          {posts.map(post => this.renderPost(post))}
           <Button onPress={this.onMakePostButtonPress}>
             <Text>Make Post</Text>
           </Button>
