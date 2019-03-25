@@ -21,15 +21,21 @@ import * as PostListActions from '../actions/postList';
 
 const styles = StyleSheet.create({
   cardBodyStyle: {
-    flexBasis: '50%',
+    flexBasis: '45%',
   },
   cardIconsStyle: {
     flexDirection: 'row',
-    flexBasis: '50%',
+    flexBasis: '55%',
   },
   timePostedStyle: {
     color: '#5e5e5e',
     fontStyle: 'italic',
+  },
+  regularRepostIconStyle: {
+    color: 'black',
+  },
+  repostedRepostIconStyle: {
+    color: 'red',
   },
 });
 
@@ -85,25 +91,35 @@ class PostList extends Component {
     });
   };
 
-  // TODO: Use a better key
-  // TODO: Fix these styles
   renderPost = post => {
     const { postComments, userData } = this.props;
     const comments = postComments[post.docId];
     const numComments = comments ? comments.length : 0;
 
+    const byText = post.ownerUsername ? `by ${post.ownerUsername}` : '';
+
+    // Todo: check if the userId is in the 'reposted' collection for the post
+    const canRepost = post.ownerUsername !== userData.username;
+
     return (
-      <Card key={post.text + userData.username}>
+      <Card key={post.text + byText}>
         <CardItem button bordered onPress={() => this.onPostPress(post)}>
           <Body style={styles.cardBodyStyle}>
             <Text>{post.text}</Text>
             <Text style={styles.timePostedStyle}>
-              Posted <TimeAgo time={post.createdOn.toDate()} />
+              Posted <TimeAgo time={post.createdOn.toDate()} /> {byText}
             </Text>
           </Body>
           <Right>
             <View style={styles.cardIconsStyle}>
-              <Icon name="md-repeat" />
+              <Icon
+                style={
+                  canRepost
+                    ? styles.regularRepostIconStyle
+                    : styles.repostedRepostIconStyle
+                }
+                name="md-repeat"
+              />
               <Text>{` ${post.reposts}    `}</Text>
               <Icon name="md-chatboxes" />
               <Text>{` ${numComments}`}</Text>

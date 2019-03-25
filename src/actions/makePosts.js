@@ -10,7 +10,7 @@ const createPostSuccess = (docRef, dispatch) => {
   dispatch({ type: types.CREATE_POST_SUCCESS });
 };
 
-export const createPost = (postText, geoLat, geoLong) => dispatch => {
+export const createPost = (postText, geoLat, geoLong, username) => dispatch => {
   console.log('Making post...');
   dispatch({ type: types.CREATE_POST });
 
@@ -20,6 +20,7 @@ export const createPost = (postText, geoLat, geoLong) => dispatch => {
     createdOn: new Date(),
     reposts: 1,
     text: postText,
+    ownerUsername: username,
   };
 
   const gfs = new GeoFirestore(firebase.firestore());

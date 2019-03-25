@@ -22,10 +22,15 @@ class CreatePostView extends Component {
 
   onPostBtnPress = geo => {
     const { postText } = this.state;
-    const { createPost } = this.props;
+    const { createPost, userData } = this.props;
     console.log(geo);
 
-    createPost(postText, geo.coords.latitude, geo.coords.longitude);
+    createPost(
+      postText,
+      geo.coords.latitude,
+      geo.coords.longitude,
+      userData.username
+    );
     this.setState({ postText: '' });
   };
 
@@ -68,6 +73,7 @@ class CreatePostView extends Component {
 function mapStateToProps(state) {
   return {
     makePost: state.MakePostReducer,
+    userData: state.AuthReducer.userData,
   };
 }
 
