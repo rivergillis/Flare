@@ -20,6 +20,14 @@ class CreatePostView extends Component {
     postText: '',
   };
 
+  componentDidUpdate = () => {
+    const { makePost } = this.props;
+    if (makePost.postSuccess) {
+      const { navigation } = this.props;
+      navigation.navigate('PostList', { postSuccess: true });
+    }
+  };
+
   onPostBtnPress = geo => {
     const { postText } = this.state;
     const { createPost, userData } = this.props;

@@ -5,6 +5,7 @@ const INITIAL_STATE = {
   posts: [],
   postComments: {},
   currentSubscription: null,
+  initialLoad: false,
 };
 
 // look at the action type
@@ -14,9 +15,13 @@ const INITIAL_STATE = {
 const PostListReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case types.SUBSCRIBE_FETCH_POST_LIST:
-      return { ...state, currentSubscription: action.payload };
+      return {
+        ...state,
+        currentSubscription: action.payload,
+        initialLoad: true,
+      };
     case types.FETCH_POST_SUCCESS:
-      return { ...state, posts: action.payload };
+      return { ...state, posts: action.payload, initialLoad: false };
     case types.FETCH_POST_COMMENTS_SUCCESS: {
       // TODO: Put these directly into the posts object
       const newPostComments = { ...state.postComments, ...action.payload };

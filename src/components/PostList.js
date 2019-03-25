@@ -12,6 +12,8 @@ import {
   Body,
   View,
   Fab,
+  Toast,
+  Spinner,
 } from 'native-base';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -22,7 +24,7 @@ import * as PostListActions from '../actions/postList';
 
 const styles = StyleSheet.create({
   cardBodyStyle: {
-    flexBasis: '45%',
+    flexBasis: '25%',
   },
   cardIconsStyle: {
     flexDirection: 'row',
@@ -36,7 +38,7 @@ const styles = StyleSheet.create({
     color: 'black',
   },
   repostedRepostIconStyle: {
-    color: 'red',
+    color: '#e21d16',
   },
 });
 
@@ -76,6 +78,14 @@ class PostList extends Component {
         frequency: 30, // TODO this doesn't actually do anything
       }
     );
+  }
+
+  componentDidUpdate() {
+    const { navigation } = this.props;
+    const postSuccess = navigation.getParam('postSuccess', null);
+    if (postSuccess) {
+      Toast.show({ text: 'Post success!', buttonText: 'Okay', duration: 2500 });
+    }
   }
 
   onMakePostButtonPress = () => {
@@ -144,8 +154,10 @@ class PostList extends Component {
   };
 
   render() {
-    const { posts, navigation } = this.props;
+    const { posts, navigation, initialLoad } = this.props;
     const { geoError } = this.state;
+
+    console.log(initialLoad);
 
     if (geoError) {
       return (
@@ -165,6 +177,30 @@ class PostList extends Component {
             >
               <Text>Debug: fetch posts</Text>
             </Button>
+          </Content>
+        </Container>
+      );
+    }
+
+    if (initialLoad) {
+      return (
+        <Container>
+          <SimpleHeader
+            title="Flare Feed"
+            icon="ios-settings"
+            onPress={() => navigation.navigate('Settings')}
+          />
+          <Content>
+            <Text
+              style={{
+                paddingTop: '10%',
+                textAlign: 'center',
+                fontWeight: 'bold',
+              }}
+            >
+              Finding posts near you...
+            </Text>
+            <Spinner color="#e21d16" />
           </Content>
         </Container>
       );
@@ -206,6 +242,7 @@ function mapStateToProps(state) {
     currentSubscription: state.PostListReducer.currentSubscription,
     loadingPostList: state.PostListReducer.loadingPostList,
     postComments: state.PostListReducer.postComments,
+    initialLoad: state.PostListReducer.initialLoad,
   };
 }
 
