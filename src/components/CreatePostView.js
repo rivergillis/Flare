@@ -7,6 +7,7 @@ import {
   Form,
   Item,
   Input,
+  Right,
 } from 'native-base';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -63,6 +64,10 @@ class CreatePostView extends Component {
               />
             </Item>
           </Form>
+          {/* TODO: Fix this style and enforce it */}
+          <Right>
+            <Text>{`${180 - postText.length} characters remaining`}</Text>
+          </Right>
           <Button
             onPress={() => this.onPostBtnPress(currentGeo)}
             disabled={makePost.isPosting}
