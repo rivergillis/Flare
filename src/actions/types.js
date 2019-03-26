@@ -22,3 +22,4 @@ export const SAVE_USER_DATA_SUCCESS = 'save_user_data_success';
 
 export const CREATE_POST = 'create_post';
 export const CREATE_POST_SUCCESS = 'create_post_success';
+export const ACK_POST_SUCCESS = 'ack_post_success';

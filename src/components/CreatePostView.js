@@ -22,8 +22,9 @@ class CreatePostView extends Component {
   };
 
   componentDidUpdate = () => {
-    const { makePost } = this.props;
+    const { makePost, ackPostSuccess } = this.props;
     if (makePost.postSuccess) {
+      ackPostSuccess();
       const { navigation } = this.props;
       navigation.navigate('PostList', { postSuccess: true });
     }
@@ -61,6 +62,7 @@ class CreatePostView extends Component {
                 placeholder="What's up?"
                 value={postText}
                 onChangeText={text => this.setState({ postText: text })}
+                disabled={makePost.isPosting}
               />
             </Item>
           </Form>

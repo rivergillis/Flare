@@ -5,6 +5,10 @@ import { GeoFirestore } from 'geofirestore';
 
 import * as types from './types';
 
+export const ackPostSuccess = () => dispatch => {
+  dispatch({ type: types.ACK_POST_SUCCESS });
+};
+
 const createPostSuccess = (docRef, dispatch) => {
   console.log(docRef);
   dispatch({ type: types.CREATE_POST_SUCCESS });

@@ -12,6 +12,8 @@ const AuthReducer = (state = INITIAL_STATE, action) => {
       return { ...state, isPosting: true, postSuccess: false };
     case types.CREATE_POST_SUCCESS:
       return { ...state, isPosting: false, postSuccess: true };
+    case types.ACK_POST_SUCCESS:
+      return { ...state, postSuccess: false };
     default:
       return state;
   }
