@@ -6,6 +6,10 @@ import { GeoFirestore } from 'geofirestore';
 import * as types from './types';
 import { fetchPostComments } from './postComments';
 
+export const setFetchPostInitialLoad = initialLoad => dispatch => {
+  dispatch({ type: types.SET_POST_INITIAL_LOAD, payload: initialLoad });
+};
+
 // https://stackoverflow.com/questions/563406/add-days-to-javascript-date
 const addDays = (date, days) => {
   const result = new Date(date);

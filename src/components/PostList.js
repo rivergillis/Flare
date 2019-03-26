@@ -43,14 +43,20 @@ const styles = StyleSheet.create({
 });
 
 class PostList extends Component {
-  state = {
-    currentGeo: null, // currentGeo.coords.latitude
-    geoError: null,
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      currentGeo: null, // currentGeo.coords.latitude
+      geoError: null,
+    };
+  }
 
   // Called as soon as the component is mounted.
   componentDidMount() {
+    const { setFetchPostInitialLoad } = this.props;
     const { lastPostFetch } = this.state;
+
+    setFetchPostInitialLoad(true);
 
     // Set up a geolocation watcher that updates the post list whenever we get new coordinates
     // TODO: Use a timer to do this manually every x seconds ?
