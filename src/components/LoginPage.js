@@ -112,7 +112,7 @@ class LoginPage extends Component {
           </View>
           <Form>
             <Item floatingLabel>
-              <Label>Email or Username</Label>
+              <Label>Email</Label>
               <Input
                 value={email}
                 onChangeText={text => this.setState({ email: text })}
