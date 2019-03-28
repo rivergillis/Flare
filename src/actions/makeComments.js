@@ -27,8 +27,8 @@ export const createComment = (commentText, username, postDocId) => {
       createdOn: new Date(),
       text: commentText,
     };
-    const gfs = new GeoFirestore(firebase.firestore());
-    gfs
+    firebase
+      .firestore()
       .collection('posts')
       .doc(postDocId)
       .collection('comments')
