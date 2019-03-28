@@ -23,3 +23,6 @@ export const SAVE_USER_DATA_SUCCESS = 'save_user_data_success';
 export const CREATE_POST = 'create_post';
 export const CREATE_POST_SUCCESS = 'create_post_success';
 export const ACK_POST_SUCCESS = 'ack_post_success';
+export const CREATE_COMMENT = 'create_comment';
+export const CREATE_COMMENT_SUCCESS = 'create_comment_success';
+export const ACK_COMMENT_SUCCESS = 'ack_comment_success';

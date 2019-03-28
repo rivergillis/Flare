@@ -105,6 +105,7 @@ class PostList extends Component {
     navigation.navigate('PostView', {
       post,
       comments: postComments[post.docId],
+      postDocId: post.docId,
     });
   };
 

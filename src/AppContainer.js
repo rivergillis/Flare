@@ -2,6 +2,7 @@ import { createStackNavigator, createAppContainer } from 'react-navigation';
 import LoginPage from './components/LoginPage';
 import SignupPage from './components/SignupPage';
 import CreatePostView from './components/CreatePostView';
+import CreateCommentView from './components/CreateCommentView';
 import PostList from './components/PostList';
 import PostView from './components/PostView';
 import SettingsPage from './components/SettingsPage';
@@ -22,6 +23,9 @@ const AppNavigator = createStackNavigator(
     },
     CreatePostView: {
       screen: CreatePostView,
+    },
+    CreateCommentView: {
+      screen: CreateCommentView,
     },
     Settings: {
       screen: SettingsPage,
