@@ -41,12 +41,12 @@ const stylesSignUp = StyleSheet.create({
     padding: 20,
     color: 'white',
   },
-  // buttonDisabled2: {
-  //   marginBottom: 30,
-  //   width: 260,
-  //   alignItems: 'center',
-  //   backgroundColor: '#a0a0a0',
-  // },
+  buttonDisabled2: {
+    marginBottom: 30,
+    width: 260,
+    alignItems: 'center',
+    backgroundColor: '#a0a0a0',
+  },
 });
 
 class SignupPage extends Component {
@@ -119,16 +119,16 @@ class SignupPage extends Component {
             // disabled={auth.creatingUser}>
             
             >
-            <View style = {stylesSignUp.buttonTest2}>
-            {/* <View
+            {/* <View style = {stylesSignUp.buttonTest2}> */}
+            <View
               style={
                 auth.creatingUser
                   ? stylesSignUp.buttonDisabled2
                   : stylesSignUp.buttonTest2
               }
-            > */}
-            {/* <Text style = {stylesSignUp.buttontextTest2}>{signupText}</Text> */}
-            <Text style = {stylesSignUp.buttontextTest2}>Sign up</Text>
+            >
+            <Text style = {stylesSignUp.buttontextTest2}>{signupText}</Text>
+            {/* <Text style = {stylesSignUp.buttontextTest2}>Finish</Text> */}
             </View>
           </TouchableWithoutFeedback>
           </View>
