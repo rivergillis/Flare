@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {StyleSheet, TouchableHighlight} from 'react-native';
 import {
   Container,
   Content,
@@ -9,12 +10,38 @@ import {
   Input,
   Label,
   Toast,
+  View,
 } from 'native-base';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import SimpleHeader from './common/SimpleHeader';
 
 import * as AuthActions from '../actions/auth';
+
+const stylesLogo = StyleSheet.create({
+  flareLogo: {
+    color: 'red',
+    fontWeight: 'bold',
+    fontSize: 60,
+  },
+});
+
+const stylesSignUp = StyleSheet.create({
+  testCont2: {
+    paddingTop: 275,
+    alignItems: 'center',
+  },
+  buttonTest2: {
+    marginBottom: 30,
+    width: 260,
+    alignItems: 'center',
+    backgroundColor: '#e21d16',
+  },
+  buttonTextTest2: {
+    padding: 20,
+    color: 'white',
+  },
+});
 
 class SignupPage extends Component {
   state = {
@@ -50,6 +77,9 @@ class SignupPage extends Component {
       <Container>
         <SimpleHeader title="Sign up" isBack navigation={navigation} />
         <Content>
+          <View style = {{alignItems:'center', padding: 30}}>
+            <Text style = {stylesLogo.flareLogo}>Flare</Text>
+          </View>  
           <Form>
             <Item floatingLabel>
               <Label>Username</Label>
@@ -74,9 +104,19 @@ class SignupPage extends Component {
               />
             </Item>
           </Form>
-          <Button onPress={this.onSignupPress} disabled={auth.creatingUser}>
+          {/* <Button onPress={this.onSignupPress} disabled={auth.creatingUser}>
             <Text>{signupText}</Text>
-          </Button>
+          </Button> */}
+          <View style = {stylesSignUp.testCont2}>
+          <TouchableHighlight
+            onPress={this.onSignupPress}
+            underlayColor = "white"
+            >
+            <View style = {stylesSignUp.buttonTest2}>
+            <Text style = {stylesSignUp.buttontextTest2}>Finish</Text>
+            </View>
+          </TouchableHighlight>
+          </View>
         </Content>
       </Container>
     );
