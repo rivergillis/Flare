@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {StyleSheet, TouchableHighlight} from 'react-native';
+import {StyleSheet, TouchableWithoutFeedback} from 'react-native';
 import {
   Container,
   Content,
@@ -41,6 +41,12 @@ const stylesSignUp = StyleSheet.create({
     padding: 20,
     color: 'white',
   },
+  // buttonDisabled2: {
+  //   marginBottom: 30,
+  //   width: 260,
+  //   alignItems: 'center',
+  //   backgroundColor: '#a0a0a0',
+  // },
 });
 
 class SignupPage extends Component {
@@ -108,14 +114,23 @@ class SignupPage extends Component {
             <Text>{signupText}</Text>
           </Button> */}
           <View style = {stylesSignUp.testCont2}>
-          <TouchableHighlight
+          <TouchableWithoutFeedback
             onPress={this.onSignupPress}
-            underlayColor = "white"
+            // disabled={auth.creatingUser}>
+            
             >
             <View style = {stylesSignUp.buttonTest2}>
-            <Text style = {stylesSignUp.buttontextTest2}>Finish</Text>
+            {/* <View
+              style={
+                auth.creatingUser
+                  ? stylesSignUp.buttonDisabled2
+                  : stylesSignUp.buttonTest2
+              }
+            > */}
+            {/* <Text style = {stylesSignUp.buttontextTest2}>{signupText}</Text> */}
+            <Text style = {stylesSignUp.buttontextTest2}>Sign up</Text>
             </View>
-          </TouchableHighlight>
+          </TouchableWithoutFeedback>
           </View>
         </Content>
       </Container>
