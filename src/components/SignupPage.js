@@ -27,21 +27,22 @@ const stylesLogo = StyleSheet.create({
 });
 
 const stylesSignUp = StyleSheet.create({
-  testCont2: {
-    paddingTop: 230,
+  ContSignUp: {
+    paddingTop: 260,
     alignItems: 'center',
   },
-  buttonTest2: {
+  buttonSignUp: {
     marginBottom: 30,
     width: 260,
+    height: 55,
     alignItems: 'center',
     backgroundColor: '#e21d16',
   },
-  buttonTextTest2: {
-    padding: 20,
-    color: 'white',
+  buttonTextSignUp: {
+    padding: 16,
+    color: '#FFFFFF',
   },
-  buttonDisabled2: {
+  buttonDisabledSignUp: {
     marginBottom: 30,
     width: 260,
     alignItems: 'center',
@@ -110,25 +111,18 @@ class SignupPage extends Component {
               />
             </Item>
           </Form>
-          {/* <Button onPress={this.onSignupPress} disabled={auth.creatingUser}>
-            <Text>{signupText}</Text>
-          </Button> */}
-          <View style = {stylesSignUp.testCont2}>
+          <View style = {stylesSignUp.ContSignUp}>
           <TouchableWithoutFeedback
             onPress={this.onSignupPress}
-            // disabled={auth.creatingUser}>
-            
             >
-            {/* <View style = {stylesSignUp.buttonTest2}> */}
             <View
               style={
                 auth.creatingUser
-                  ? stylesSignUp.buttonDisabled2
-                  : stylesSignUp.buttonTest2
+                  ? stylesSignUp.buttonDisabledSignUp
+                  : stylesSignUp.buttonSignUp
               }
             >
-            <Text style = {stylesSignUp.buttontextTest2}>{signupText}</Text>
-            {/* <Text style = {stylesSignUp.buttontextTest2}>Finish</Text> */}
+            <Text style = {stylesSignUp.buttonTextSignUp}>{signupText}</Text>
             </View>
           </TouchableWithoutFeedback>
           </View>
