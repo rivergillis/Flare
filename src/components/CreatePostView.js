@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { StyleSheet, TouchableWithoutFeedback } from 'react-native';
 import {
   Container,
   Content,
@@ -7,6 +8,9 @@ import {
   Form,
   Item,
   Input,
+  Label,
+  Toast,
+  View,
   Right,
 } from 'native-base';
 import { bindActionCreators } from 'redux';
@@ -15,6 +19,30 @@ import SimpleHeader from './common/SimpleHeader';
 
 // Import the redux actions
 import * as MakePostActions from '../actions/makePosts';
+
+const stylesPost = StyleSheet.create({
+  ContPostButton: {
+    paddingTop: 30,
+    alignItems: 'center',
+    
+  },
+  buttonPost: {
+    marginBottom: 30,
+    width: 260,
+    alignItems: 'center',
+    backgroundColor: '#e21d16',
+  },
+  buttonTextPost: {
+    padding: 20,
+    color: 'white',
+  },
+  buttonDisabledPost: {
+    marginBottom: 30,
+    width: 260,
+    alignItems: 'center',
+    backgroundColor: '#a0a0a0',
+  },
+});
 
 class CreatePostView extends Component {
   state = {
@@ -70,12 +98,31 @@ class CreatePostView extends Component {
           <Right>
             <Text>{`${180 - postText.length} characters remaining`}</Text>
           </Right>
-          <Button
+          {/* <Button
             onPress={() => this.onPostBtnPress(currentGeo)}
             disabled={makePost.isPosting}
           >
             <Text>{postBtnText}</Text>
-          </Button>
+          </Button> */}
+
+          <View style={stylesPost.ContPostButton}>
+            <TouchableWithoutFeedback
+              onPress={() => this.onPostBtnPress(currentGeo)}
+              disabled={makePost.isPosting}
+            >
+              <View
+                style={
+                  makePost.isPosting
+                    ? stylesPost.buttonDisabledPost
+                    : stylesPost.buttonPost
+                }
+              >
+                <Text style={stylesPost.buttonTextPost}>{postBtnText}</Text>
+              </View>
+            </TouchableWithoutFeedback>
+          </View>
+
+
         </Content>
       </Container>
     );
