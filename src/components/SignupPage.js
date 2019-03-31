@@ -28,7 +28,7 @@ const stylesLogo = StyleSheet.create({
 
 const stylesSignUp = StyleSheet.create({
   testCont2: {
-    paddingTop: 275,
+    paddingTop: 230,
     alignItems: 'center',
   },
   buttonTest2: {

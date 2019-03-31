@@ -53,8 +53,6 @@ const stylesSignUp = StyleSheet.create({
   testCont2: {
     paddingTop: 10,
     alignItems: 'center',
-    // flex: 1,
-    // justifyContent: 'center',
   },
   buttonTest2: {
     marginBottom: 30,
@@ -127,17 +125,6 @@ class LoginPage extends Component {
               />
             </Item>
           </Form>
-          {/* <Button
-            onPress={this.onLoginPress}
-            disabled={auth.loggingIn}
-            style={{
-              backgroundColor: '#e21d16',
-              width: 260,
-              marginHorizontal: 50,
-            }}
-          >
-            <Text>{loginText}</Text>
-          </Button> */}
           <View style={stylesLogin.testCont}>
             <TouchableWithoutFeedback
               onPress={this.onLoginPress}
@@ -164,19 +151,6 @@ class LoginPage extends Component {
           >
             <Text>Not a member?</Text>
           </View>
-
-          {/* <Button
-            //bordered
-            onPress={this.onSignupPress}
-            disabled={auth.loggingIn}
-            style={{
-              backgroundColor: '#e21d16',
-              width: 260,
-              marginHorizontal: 50,
-            }}
-          >
-            <Text> Sign up</Text>
-          </Button> */}
           <View style={stylesSignUp.testCont2}>
             <TouchableWithoutFeedback onPress={this.onSignupPress}>
               <View style={stylesSignUp.buttonTest2}>
