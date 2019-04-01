@@ -50,7 +50,8 @@ const stylesPost = StyleSheet.create({
     borderWidth: 1,
     width: 300,
     height: 300,
-    backgroundColor: '#a0a0a0',
+    backgroundColor: '#D3D3D3',
+    borderColor: '#A9A9A9',
     color: '#e21d16',
     fontSize: 20,
   }
