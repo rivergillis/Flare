@@ -43,13 +43,10 @@ const stylesPost = StyleSheet.create({
     backgroundColor: '#a0a0a0',
   },
   containerTextBox: {
-    // flex: 1,
-    // justifyContent: 'center',
     paddingTop: 10,
     alignItems: 'center',
   },
   searchBar: {
-    // paddingTop: 10,
     borderWidth: 1,
     width: 300,
     height: 300,
@@ -99,17 +96,6 @@ class CreatePostView extends Component {
       <Container>
         <SimpleHeader title="Create Post" isBack navigation={navigation} />
         <Content>
-          {/* <Form>
-            <Item>
-              <Input
-                placeholder="What's up?"
-                value={postText}
-                onChangeText={text => this.setState({ postText: text })}
-                disabled={makePost.isPosting}
-              />
-            </Item>
-          </Form> */}
-
           <View style = {stylesPost.containerTextBox}>
             <TextInput
               style={stylesPost.searchBar}
@@ -126,13 +112,6 @@ class CreatePostView extends Component {
           <Right>
             <Text>{`${180 - postText.length} characters remaining`}</Text>
           </Right>
-          {/* <Button
-            onPress={() => this.onPostBtnPress(currentGeo)}
-            disabled={makePost.isPosting}
-          >
-            <Text>{postBtnText}</Text>
-          </Button> */}
-
           <View style={stylesPost.ContPostButton}>
             <TouchableWithoutFeedback
               onPress={() => this.onPostBtnPress(currentGeo)}
