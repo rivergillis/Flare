@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, TouchableWithoutFeedback } from 'react-native';
+import { StyleSheet, TouchableWithoutFeedback, TextInput} from 'react-native';
 import {
   Container,
   Content,
@@ -22,7 +22,7 @@ import * as MakePostActions from '../actions/makePosts';
 
 const stylesPost = StyleSheet.create({
   ContPostButton: {
-    paddingTop: 30,
+    paddingTop: 230,
     alignItems: 'center',
     
   },
@@ -42,6 +42,18 @@ const stylesPost = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#a0a0a0',
   },
+  containerTextBox: {
+    // flex: 1,
+    // justifyContent: 'center',
+    paddingTop: 10,
+    alignItems: 'center',
+  },
+  searchBar: {
+    // paddingTop: 10,
+    borderWidth: 1,
+    width: 300,
+    height: 300,
+  }
 });
 
 class CreatePostView extends Component {
@@ -84,7 +96,7 @@ class CreatePostView extends Component {
       <Container>
         <SimpleHeader title="Create Post" isBack navigation={navigation} />
         <Content>
-          <Form>
+          {/* <Form>
             <Item>
               <Input
                 placeholder="What's up?"
@@ -93,7 +105,19 @@ class CreatePostView extends Component {
                 disabled={makePost.isPosting}
               />
             </Item>
-          </Form>
+          </Form> */}
+
+          <View style = {stylesPost.containerTextBox}>
+            <TextInput
+              style={stylesPost.searchBar}
+              placeholder="What's up?"
+              value={postText}
+              onChangeText={text => this.setState({ postText: text })}
+              disabled={makePost.isPosting}
+              multiline={true}
+            />
+          </View>
+
           {/* TODO: Fix this style and enforce it */}
           <Right>
             <Text>{`${180 - postText.length} characters remaining`}</Text>
