@@ -53,6 +53,9 @@ const stylesPost = StyleSheet.create({
     borderWidth: 1,
     width: 300,
     height: 300,
+    backgroundColor: '#a0a0a0',
+    color: '#e21d16',
+    fontSize: 20,
   }
 });
 
@@ -111,6 +114,7 @@ class CreatePostView extends Component {
             <TextInput
               style={stylesPost.searchBar}
               placeholder="What's up?"
+              placeholderTextColor= "red"
               value={postText}
               onChangeText={text => this.setState({ postText: text })}
               disabled={makePost.isPosting}
