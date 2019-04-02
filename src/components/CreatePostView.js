@@ -28,7 +28,7 @@ const stylesPost = StyleSheet.create({
   },
   buttonPost: {
     marginBottom: 30,
-    width: 260,
+    width: 330,
     alignItems: 'center',
     backgroundColor: '#e21d16',
   },
@@ -38,7 +38,7 @@ const stylesPost = StyleSheet.create({
   },
   buttonDisabledPost: {
     marginBottom: 30,
-    width: 260,
+    width: 330,
     alignItems: 'center',
     backgroundColor: '#a0a0a0',
   },
@@ -48,7 +48,7 @@ const stylesPost = StyleSheet.create({
   },
   searchBar: {
     borderWidth: 1,
-    width: 300,
+    width: 330,
     height: 300,
     backgroundColor: '#D3D3D3',
     borderColor: '#A9A9A9',
