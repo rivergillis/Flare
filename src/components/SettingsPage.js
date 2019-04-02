@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { StyleSheet, TouchableWithoutFeedback} from 'react-native';
 import {
   Container,
   Content,
@@ -8,6 +9,7 @@ import {
   Item,
   Label,
   Input,
+  View,
 } from 'native-base';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -15,6 +17,31 @@ import SimpleHeader from './common/SimpleHeader';
 
 // Import the redux actions
 import * as AuthActions from '../actions/auth';
+
+const stylesSettings = StyleSheet.create({
+  ContSettingButton: {
+    paddingTop: 520,
+    alignItems: 'center',
+    
+  },
+  buttonSetting: {
+    marginBottom: 30,
+    width: 330,
+    alignItems: 'center',
+    backgroundColor: '#e21d16',
+  },
+  buttonTextSetting: {
+    padding: 20,
+    color: 'white',
+  },
+  buttonDisabledSetting: {
+    marginBottom: 30,
+    width: 330,
+    alignItems: 'center',
+    backgroundColor: '#a0a0a0',
+  },
+});
+
 
 class SettingsPage extends Component {
   constructor(args) {
@@ -48,9 +75,26 @@ class SettingsPage extends Component {
               />
             </Item>
           </Form>
-          <Button onPress={this.onSavePress} disabled={auth.savingUserData}>
+          {/* <Button onPress={this.onSavePress} disabled={auth.savingUserData}>
             <Text>{saveText}</Text>
-          </Button>
+          </Button> */}
+
+          <View style={stylesSettings.ContSettingButton}>
+            <TouchableWithoutFeedback
+              onPress={this.onSavePress}
+              disabled={auth.savingUserData}
+            >
+              <View
+                style={
+                  auth.savingUserData
+                    ? stylesSettings.buttonDisabledSetting
+                    : stylesSettings.buttonSetting
+                }
+              >
+                <Text style={stylesSettings.buttonTextSetting}>{saveText}</Text>
+              </View>
+            </TouchableWithoutFeedback>
+          </View>
         </Content>
       </Container>
     );

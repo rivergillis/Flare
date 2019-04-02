@@ -93,16 +93,6 @@ class CreateCommentView extends Component {
       <Container>
         <SimpleHeader title="Comment" isBack navigation={navigation} />
         <Content>
-          {/* <Form>
-            <Item>
-              <Input
-                placeholder="Share your thoughts!"
-                value={commentText}
-                onChangeText={text => this.setState({ commentText: text })}
-                disabled={makeComment.isCommenting}
-              />
-            </Item>
-          </Form> */}
 
           <View style = {stylesComments.containerTextBoxComment}>
             <TextInput
@@ -115,13 +105,6 @@ class CreateCommentView extends Component {
               multiline={true}
             />
           </View>
-
-          {/* <Button
-            onPress={() => this.onCommentBtnPress(postDocId)}
-            disabled={makeComment.isCommenting}
-          >
-            <Text>{commentBtnText}</Text>
-          </Button> */}
 
           <View style={stylesComments.ContCommentButton}>
             <TouchableWithoutFeedback
