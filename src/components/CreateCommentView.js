@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { StyleSheet, TouchableWithoutFeedback, TextInput} from 'react-native';
 import {
   Container,
   Content,
@@ -7,12 +8,53 @@ import {
   Form,
   Item,
   Input,
+  Label,
+  Toast,
+  View,
+  Right,
 } from 'native-base';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import SimpleHeader from './common/SimpleHeader';
 
 import * as MakeCommentActions from '../actions/makeComments';
+
+const stylesComments = StyleSheet.create({
+  ContCommentButton: {
+    paddingTop: 230,
+    alignItems: 'center',
+    
+  },
+  buttonComment: {
+    marginBottom: 30,
+    width: 330,
+    alignItems: 'center',
+    backgroundColor: '#e21d16',
+  },
+  buttonTextComment: {
+    padding: 20,
+    color: 'white',
+  },
+  buttonDisabledComment: {
+    marginBottom: 30,
+    width: 330,
+    alignItems: 'center',
+    backgroundColor: '#a0a0a0',
+  },
+  containerTextBoxComment: {
+    paddingTop: 10,
+    alignItems: 'center',
+  },
+  searchBarComment: {
+    borderWidth: 1,
+    width: 330,
+    height: 300,
+    // backgroundColor: '#D3D3D3',
+    borderColor: '#A9A9A9',
+    color: '#e21d16',
+    fontSize: 20,
+  }
+});
 
 class CreateCommentView extends Component {
   state = {
@@ -49,9 +91,9 @@ class CreateCommentView extends Component {
 
     return (
       <Container>
-        <SimpleHeader title="Create Comment" isBack navigation={navigation} />
+        <SimpleHeader title="Comment" isBack navigation={navigation} />
         <Content>
-          <Form>
+          {/* <Form>
             <Item>
               <Input
                 placeholder="Share your thoughts!"
@@ -60,13 +102,45 @@ class CreateCommentView extends Component {
                 disabled={makeComment.isCommenting}
               />
             </Item>
-          </Form>
-          <Button
+          </Form> */}
+
+          <View style = {stylesComments.containerTextBoxComment}>
+            <TextInput
+              style={stylesComments.searchBarComment}
+              placeholder=" Share your thoughts!"
+              placeholderTextColor= "red"
+              value={commentText}
+              onChangeText={text => this.setState({ commentText: text })}
+              disabled={makeComment.isCommenting}
+              multiline={true}
+            />
+          </View>
+
+          {/* <Button
             onPress={() => this.onCommentBtnPress(postDocId)}
             disabled={makeComment.isCommenting}
           >
             <Text>{commentBtnText}</Text>
-          </Button>
+          </Button> */}
+
+          <View style={stylesComments.ContCommentButton}>
+            <TouchableWithoutFeedback
+              onPress={() => this.onCommentBtnPress(postDocId)}
+              disabled={makeComment.isCommenting}
+            >
+              <View
+                style={
+                  makeComment.isCommenting
+                    ? stylesComments.buttonDisabledComment
+                    : stylesComments.buttonComment
+                }
+              >
+                <Text style={stylesComments.buttonTextComment}>{commentBtnText}</Text>
+              </View>
+            </TouchableWithoutFeedback>
+          </View>
+          
+          
         </Content>
       </Container>
     );
