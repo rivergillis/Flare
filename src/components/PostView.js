@@ -20,7 +20,7 @@ class PostView extends Component {
 
   renderComments = comment => {
     return (
-      <CardItem key={comment.text} bordered>
+      <CardItem key={comment.docId} bordered>
         <View
           style={{
             flex: 1,

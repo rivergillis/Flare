@@ -37,6 +37,14 @@ const canDisplayPost = (post, userLat, userLong) => {
   // Post too old
   const expirationDate = addDays(post.createdOn.toDate(), post.reposts);
   if (new Date() > expirationDate) {
+    // Delete posts that are too old.
+    firebase
+      .firestore()
+      .collection('posts')
+      .doc(post.docId)
+      .delete()
+      .then(() => console.log(`deleted post ${post.docId} for being too old.`))
+      .catch(err => console.log(err));
     return false;
   }
 
@@ -57,12 +65,13 @@ const filterPostList = (dispatch, userLat, userLong, querySnapshot) => {
     // Store the firebase document ID with each post, so that we can easily grab comments.
     const postDocId = doc.id;
     data.docId = postDocId;
+
+    // Add the post to our list and fetch the comments if we can display it
     if (canDisplayPost(data, userLat, userLong)) {
       posts.push(data);
+      // Since we have the posts here, lets go ahead and get the comments
+      fetchPostComments(dispatch, postDocId);
     }
-
-    // Since we have the posts here, lets go ahead and get the comments
-    fetchPostComments(dispatch, postDocId);
   });
 
   console.log(

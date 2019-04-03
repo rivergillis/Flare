@@ -5,6 +5,7 @@ import * as types from './types';
 
 // Takes the document id from a post and fetches the comments.
 // Called from postList::getPostListSuccess
+// TODO: change this to be a subscription on each post's comments
 export const fetchPostComments = async (dispatch, postDocId) => {
   console.log(`fetching comments for post ${postDocId}...`);
   dispatch({ type: types.FETCH_POST_COMMENTS, payload: postDocId });

@@ -80,7 +80,7 @@ class PostList extends Component {
         enableHighAccuracy: true,
         timeout: 30000,
         maximumAge: 1000,
-        distanceFilter: 10,
+        distanceFilter: 10, // 10 meters
         frequency: 30, // TODO this doesn't actually do anything
       }
     );
