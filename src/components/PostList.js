@@ -109,7 +109,11 @@ class PostList extends Component {
     });
   };
 
-  onRepostButtonPress = (post, canRepost) => {
+  onRepostButtonPress = (post, canRepost, shouldIgnore) => {
+    if (shouldIgnore) {
+      console.log('ignoring repost request');
+      return;
+    }
     const { repostPost } = this.props;
     repostPost(post, canRepost);
   };
@@ -129,6 +133,8 @@ class PostList extends Component {
       canRepost = false;
     }
 
+    const shouldIgnoreRepost = userData.userId === post.ownerId || !repostDoc;
+
     return (
       <Card key={post.text + byText}>
         <CardItem button bordered onPress={() => this.onPostPress(post)}>
@@ -141,7 +147,7 @@ class PostList extends Component {
           <Right>
             <TouchableOpacity
               onPress={() =>
-                this.onRepostButtonPress(post, repostDoc && canRepost)
+                this.onRepostButtonPress(post, canRepost, shouldIgnoreRepost)
               }
             >
               <View style={styles.cardIconsStyle}>

@@ -30,6 +30,7 @@
     "object-curly-newline": "off",
     "class-methods-use-this": "off",
     "jsx-a11y/label-has-for": "off",
-    "react/jsx-one-expression-per-line": "off"
+    "react/jsx-one-expression-per-line": "off",
+    "implicit-arrow-linebreak": "off"
   }
 }

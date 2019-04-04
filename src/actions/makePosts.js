@@ -10,8 +10,18 @@ export const ackPostSuccess = () => dispatch => {
 };
 
 const createPostSuccess = (docRef, dispatch) => {
-  console.log(docRef);
-  dispatch({ type: types.CREATE_POST_SUCCESS });
+  console.log(docRef.id);
+  // Now that we have the document, add ourself as a repost...
+  const userId = firebase.auth().currentUser.uid;
+  firebase
+    .firestore()
+    .collection('posts')
+    .doc(docRef.id)
+    .collection('reposts')
+    .doc(userId)
+    .set({ reposted: true })
+    .then(() => dispatch({ type: types.CREATE_POST_SUCCESS }))
+    .catch(err => console.log(err));
 };
 
 export const createPost = (postText, geoLat, geoLong, username) => dispatch => {

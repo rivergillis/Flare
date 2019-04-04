@@ -125,6 +125,6 @@ export const repostPost = (post, canRepost) => dispatch => {
     .collection('reposts')
     .doc(userId)
     .set({ reposted: canRepost })
-    .then(() => console.log('set repo to true'))
+    .then(() => console.log(`set to ${canRepost}`))
     .catch(err => console.log(err));
 };
