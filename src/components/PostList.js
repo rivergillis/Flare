@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, TouchableOpacity } from 'react-native';
 import {
   Container,
   Content,
@@ -109,15 +109,25 @@ class PostList extends Component {
     });
   };
 
+  onRepostButtonPress = (post, canRepost) => {
+    const { repostPost } = this.props;
+    repostPost(post, canRepost);
+  };
+
   renderPost = post => {
-    const { postComments, userData } = this.props;
+    const { postComments, postReposts, userData } = this.props;
     const comments = postComments[post.docId];
     const numComments = comments ? comments.length : 0;
 
     const byText = post.ownerUsername ? `by ${post.ownerUsername}` : '';
 
     // Todo: check if the userId is in the 'reposted' collection for the post
-    const canRepost = post.ownerUsername !== userData.username;
+    // const canRepost = postReposts[post.docId].userHasReposted;
+    let canRepost = true;
+    const repostDoc = postReposts[post.docId];
+    if (repostDoc && repostDoc.userHasReposted) {
+      canRepost = false;
+    }
 
     return (
       <Card key={post.text + byText}>
@@ -129,19 +139,25 @@ class PostList extends Component {
             </Text>
           </Body>
           <Right>
-            <View style={styles.cardIconsStyle}>
-              <Icon
-                style={
-                  canRepost
-                    ? styles.regularRepostIconStyle
-                    : styles.repostedRepostIconStyle
-                }
-                name="md-repeat"
-              />
-              <Text>{` ${post.reposts}    `}</Text>
-              <Icon name="md-chatboxes" />
-              <Text>{` ${numComments}`}</Text>
-            </View>
+            <TouchableOpacity
+              onPress={() =>
+                this.onRepostButtonPress(post, repostDoc && canRepost)
+              }
+            >
+              <View style={styles.cardIconsStyle}>
+                <Icon
+                  style={
+                    canRepost
+                      ? styles.regularRepostIconStyle
+                      : styles.repostedRepostIconStyle
+                  }
+                  name="md-repeat"
+                />
+                <Text>{` ${post.reposts}    `}</Text>
+                <Icon name="md-chatboxes" />
+                <Text>{` ${numComments}`}</Text>
+              </View>
+            </TouchableOpacity>
           </Right>
         </CardItem>
       </Card>
@@ -161,8 +177,9 @@ class PostList extends Component {
   };
 
   render() {
-    const { posts, navigation, initialLoad } = this.props;
+    const { posts, navigation, initialLoad, postReposts } = this.props;
     const { geoError } = this.state;
+    console.log(postReposts);
 
     if (geoError) {
       return (
@@ -247,6 +264,7 @@ function mapStateToProps(state) {
     currentSubscription: state.PostListReducer.currentSubscription,
     loadingPostList: state.PostListReducer.loadingPostList,
     postComments: state.PostListReducer.postComments,
+    postReposts: state.PostListReducer.postReposts,
     initialLoad: state.PostListReducer.initialLoad,
   };
 }

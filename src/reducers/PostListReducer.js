@@ -4,6 +4,7 @@ import * as types from '../actions/types';
 const INITIAL_STATE = {
   posts: [],
   postComments: {},
+  postReposts: {},
   currentSubscription: null,
   initialLoad: false,
 };
@@ -24,6 +25,10 @@ const PostListReducer = (state = INITIAL_STATE, action) => {
       // TODO: Put these directly into the posts object
       const newPostComments = { ...state.postComments, ...action.payload };
       return { ...state, postComments: newPostComments };
+    }
+    case types.FETCH_POST_REPOSTS_SUCCESS: {
+      const newPostReposts = { ...state.postReposts, ...action.payload };
+      return { ...state, postReposts: newPostReposts };
     }
     default:
       return state;

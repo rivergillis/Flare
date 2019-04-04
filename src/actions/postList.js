@@ -4,7 +4,7 @@ import firestore from 'firebase/firestore';
 import geolib from 'geolib';
 import { GeoFirestore } from 'geofirestore';
 import * as types from './types';
-import { fetchPostComments } from './postComments';
+import { fetchPostComments, fetchPostReposts } from './postSubData';
 
 export const setFetchPostInitialLoad = initialLoad => dispatch => {
   dispatch({ type: types.SET_POST_INITIAL_LOAD, payload: initialLoad });
@@ -71,6 +71,7 @@ const filterPostList = (dispatch, userLat, userLong, querySnapshot) => {
       posts.push(data);
       // Since we have the posts here, lets go ahead and get the comments
       fetchPostComments(dispatch, postDocId);
+      fetchPostReposts(dispatch, postDocId);
     }
   });
 
@@ -111,4 +112,19 @@ export const subscribeFetchPostList = (
     error => getPostListFail(error)
   );
   dispatch({ type: types.SUBSCRIBE_FETCH_POST_LIST, payload: subscription });
+};
+
+export const repostPost = (post, canRepost) => dispatch => {
+  console.log('repopo');
+  const userId = firebase.auth().currentUser.uid;
+
+  firebase
+    .firestore()
+    .collection('posts')
+    .doc(post.docId)
+    .collection('reposts')
+    .doc(userId)
+    .set({ reposted: canRepost })
+    .then(() => console.log('set repo to true'))
+    .catch(err => console.log(err));
 };

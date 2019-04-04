@@ -34,3 +34,40 @@ export const fetchPostComments = async (dispatch, postDocId) => {
     console.log(err);
   }
 };
+
+export const fetchPostReposts = async (dispatch, postDocId) => {
+  console.log(`fetching reposts for post ${postDocId}...`);
+  dispatch({ type: types.FETCH_POST_REPOSTS, payload: postDocId });
+  try {
+    const repostsQuerySnapshot = await firebase
+      .firestore()
+      .collection('posts')
+      .doc(postDocId)
+      .collection('reposts')
+      .get();
+
+    const reposts = [];
+    let userHasReposted = false;
+    repostsQuerySnapshot.forEach(doc => {
+      const data = doc.data();
+      const repostDocId = doc.id;
+      data.docId = repostDocId;
+      // Only count reposts that are true (not undone)
+      if (data.reposted) {
+        // Check if the current user has reposted it
+        if (data.docId === firebase.auth().currentUser.uid) {
+          userHasReposted = true;
+        }
+        reposts.push(data);
+      }
+    });
+
+    // Use the post document id as the key for the comments array
+    dispatch({
+      type: types.FETCH_POST_REPOSTS_SUCCESS,
+      payload: { [postDocId]: { reposts, userHasReposted } },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
