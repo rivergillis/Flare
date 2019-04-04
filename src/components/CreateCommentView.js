@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, TouchableWithoutFeedback, TextInput} from 'react-native';
+import { StyleSheet, TouchableWithoutFeedback, TextInput } from 'react-native';
 import {
   Container,
   Content,
@@ -23,7 +23,6 @@ const stylesComments = StyleSheet.create({
   ContCommentButton: {
     paddingTop: 230,
     alignItems: 'center',
-    
   },
   buttonComment: {
     marginBottom: 30,
@@ -42,18 +41,20 @@ const stylesComments = StyleSheet.create({
     backgroundColor: '#a0a0a0',
   },
   containerTextBoxComment: {
-    paddingTop: 10,
+    marginTop: 10,
+    marginLeft: 15,
+    marginRight: 15,
     alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#A9A9A9',
   },
   searchBarComment: {
-    borderWidth: 1,
     width: 330,
     height: 300,
     // backgroundColor: '#D3D3D3',
-    borderColor: '#A9A9A9',
     color: '#e21d16',
     fontSize: 20,
-  }
+  },
 });
 
 class CreateCommentView extends Component {
@@ -93,12 +94,11 @@ class CreateCommentView extends Component {
       <Container>
         <SimpleHeader title="Comment" isBack navigation={navigation} />
         <Content>
-
-          <View style = {stylesComments.containerTextBoxComment}>
+          <View style={stylesComments.containerTextBoxComment}>
             <TextInput
               style={stylesComments.searchBarComment}
               placeholder=" Share your thoughts!"
-              placeholderTextColor= "red"
+              placeholderTextColor="red"
               value={commentText}
               onChangeText={text => this.setState({ commentText: text })}
               disabled={makeComment.isCommenting}
@@ -118,12 +118,12 @@ class CreateCommentView extends Component {
                     : stylesComments.buttonComment
                 }
               >
-                <Text style={stylesComments.buttonTextComment}>{commentBtnText}</Text>
+                <Text style={stylesComments.buttonTextComment}>
+                  {commentBtnText}
+                </Text>
               </View>
             </TouchableWithoutFeedback>
           </View>
-          
-          
         </Content>
       </Container>
     );
