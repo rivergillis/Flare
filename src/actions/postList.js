@@ -118,13 +118,25 @@ export const repostPost = (post, canRepost) => dispatch => {
   console.log('repopo');
   const userId = firebase.auth().currentUser.uid;
 
-  firebase
-    .firestore()
-    .collection('posts')
-    .doc(post.docId)
-    .collection('reposts')
-    .doc(userId)
-    .set({ reposted: canRepost })
-    .then(() => console.log(`set to ${canRepost}`))
-    .catch(err => console.log(err));
+  if (canRepost) {
+    firebase
+      .firestore()
+      .collection('posts')
+      .doc(post.docId)
+      .collection('reposts')
+      .doc(userId)
+      .set({ reposted: true })
+      .then(() => console.log(`set to ${canRepost}`))
+      .catch(err => console.log(err));
+  } else {
+    firebase
+      .firestore()
+      .collections('posts')
+      .doc(post.docId)
+      .collection('reposts')
+      .doc(userId)
+      .delete()
+      .then(() => console.log('deleted repost doc'))
+      .catch(err => console.log(err));
+  }
 };
