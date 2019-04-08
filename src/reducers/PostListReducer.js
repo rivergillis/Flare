@@ -54,7 +54,8 @@ const PostListReducer = (state = INITIAL_STATE, action) => {
       const filtered = newPostReposts[postId].reposts.filter(repoObj => {
         return repoObj.docId !== userId;
       });
-      return { ...state, postReposts: filtered };
+      newPostReposts[postId].reposts = filtered;
+      return { ...state, postReposts: newPostReposts };
     }
     default:
       return state;
