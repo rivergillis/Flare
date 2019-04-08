@@ -10,6 +10,8 @@ export const FETCH_POST_COMMENTS_SUCCESS = 'fetch_post_comments_success';
 export const FETCH_POST_REPOSTS = 'fetch_post_reposts';
 export const FETCH_POST_REPOSTS_SUCCESS = 'fetch_post_reposts_success';
 
+export const UPDATE_REPOST_CACHE = 'update_repost_cache';
+
 export const BEGIN_LOGIN = 'begin_login';
 export const LOGIN_SUCCESS = 'login_success';
 export const FETCH_USER_DATA_SUCCESS = 'fetch_user_data_success';

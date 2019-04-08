@@ -32,9 +32,9 @@ export const createPost = (postText, geoLat, geoLong, username) => dispatch => {
   const docData = {
     ownerId: userId, // todo: might need to use regular firestore to add this to the root of the doc for querying?
     createdOn: new Date(),
-    reposts: 1,
     text: postText,
     ownerUsername: username,
+    numReposts: 0,
   };
 
   const gfs = new GeoFirestore(firebase.firestore());

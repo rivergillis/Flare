@@ -131,7 +131,7 @@ export const repostPost = (post, canRepost) => dispatch => {
   } else {
     firebase
       .firestore()
-      .collections('posts')
+      .collection('posts')
       .doc(post.docId)
       .collection('reposts')
       .doc(userId)
@@ -139,4 +139,10 @@ export const repostPost = (post, canRepost) => dispatch => {
       .then(() => console.log('deleted repost doc'))
       .catch(err => console.log(err));
   }
+
+  // Now update the local cache real quick (will update again after we pull data).
+  dispatch({
+    type: types.UPDATE_REPOST_CACHE,
+    payload: { postId: post.docId, isReposted: canRepost, userId },
+  });
 };

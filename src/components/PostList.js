@@ -159,7 +159,7 @@ class PostList extends Component {
                   }
                   name="md-repeat"
                 />
-                <Text>{` ${post.reposts}    `}</Text>
+                <Text>{` ${post.numReposts}    `}</Text>
                 <Icon name="md-chatboxes" />
                 <Text>{` ${numComments}`}</Text>
               </View>
@@ -185,7 +185,8 @@ class PostList extends Component {
   render() {
     const { posts, navigation, initialLoad, postReposts } = this.props;
     const { geoError } = this.state;
-    console.log(postReposts);
+    // console.log(postReposts);
+    console.log(posts);
 
     if (geoError) {
       return (

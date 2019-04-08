@@ -30,6 +30,32 @@ const PostListReducer = (state = INITIAL_STATE, action) => {
       const newPostReposts = { ...state.postReposts, ...action.payload };
       return { ...state, postReposts: newPostReposts };
     }
+    case types.UPDATE_REPOST_CACHE: {
+      const { postId, isReposted, userId } = action.payload;
+      const newPostReposts = { ...state.postReposts };
+      const newPosts = [...state.posts];
+
+      // Update the repost count
+      const indexToUpdate = newPosts.findIndex(
+        postObj => postObj.docId === postId
+      );
+      if (isReposted) {
+        newPosts[indexToUpdate].numReposts += 1;
+      } else {
+        newPosts[indexToUpdate].numReposts -= 1;
+      }
+
+      // Update userHasReposted and the postReposts array
+      newPostReposts[postId].userHasReposted = isReposted;
+      if (isReposted) {
+        newPostReposts[postId].reposts.push({ reposted: true, docId: userId });
+        return { ...state, postReposts: newPostReposts };
+      }
+      const filtered = newPostReposts[postId].reposts.filter(repoObj => {
+        return repoObj.docId !== userId;
+      });
+      return { ...state, postReposts: filtered };
+    }
     default:
       return state;
   }
