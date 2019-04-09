@@ -11,14 +11,18 @@ const INITIAL_STATE = {
 };
 
 const sortPosts = (postList, sortMethod) => {
+  const startTime = new Date().getMilliseconds();
   const sortedPosts = [...postList];
   if (sortMethod === 'new') {
     sortedPosts.sort((a, b) => b.createdOn.toDate() - a.createdOn.toDate());
   } else if (sortMethod === 'hot') {
-    sortedPosts.sort((a, b) => a.createdOn.toDate() - b.createdOn.toDate());
+    sortedPosts.sort((a, b) => b.numReposts - a.numReposts);
   } else {
     console.error(`Invalid sorting method for the posts: ${sortMethod}`);
   }
+  console.log(
+    `Done sorting posts in ${new Date().getMilliseconds() - startTime}ms`
+  );
   return sortedPosts;
 };
 
