@@ -202,12 +202,10 @@ class PostList extends Component {
   };
 
   render() {
-    const { posts, navigation, initialLoad, postReposts } = this.props;
-    const { geoError } = this.state;
-    // console.log(postReposts);
-    console.log(postReposts);
+    const { posts, navigation, initialLoad } = this.props;
+    const { geoError, currentGeo } = this.state;
 
-    if (geoError) {
+    if (geoError && initialLoad) {
       return (
         <Container>
           <SimpleHeader
@@ -263,6 +261,12 @@ class PostList extends Component {
         />
         <Content>
           {posts.map(post => this.renderPost(post))}
+          {currentGeo && currentGeo.coords && (
+            <Text style={{ textAlign: 'center', paddingTop: '10%' }}>
+              [debug] you are at ({currentGeo.coords.latitude},{' '}
+              {currentGeo.coords.longitude})
+            </Text>
+          )}
           <View style={{ paddingTop: '20%' }} />
         </Content>
         <View>
