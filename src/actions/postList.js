@@ -67,6 +67,8 @@ const filterPostList = (dispatch, userLat, userLong, querySnapshot) => {
     // Store the firebase document ID with each post, so that we can easily grab comments.
     const postDocId = doc.id;
     data.docId = postDocId;
+    // Also store the distance from the device in meters.
+    data.distance = doc.distance * 1000;
 
     // Add the post to our list and fetch the comments if we can display it
     if (canDisplayPost(data, userLat, userLong)) {

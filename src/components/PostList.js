@@ -155,22 +155,15 @@ class PostList extends Component {
 
     const shouldIgnoreRepost = userData.userId === post.ownerId || !repostDoc;
 
+    const roundedDist = Math.round(post.distance);
+    const distText =
+      roundedDist < 10 ? 'right here' : `${roundedDist} meters away`;
+
     return (
       <Card key={post.text + byText}>
         <CardItem button bordered onPress={() => this.onPostPress(post)}>
           <Body style={styles.cardBodyStyle}>
             <Text>{post.text}</Text>
-            <Text style={styles.timePostedStyle}>
-              Posted <TimeAgo time={post.createdOn.toDate()} />{' '}
-              {post.ownerUsername && 'by'}{' '}
-              <Text
-                style={
-                  byText === 'you' ? styles.bySelfStyle : styles.timePostedStyle
-                }
-              >
-                {byText}
-              </Text>
-            </Text>
           </Body>
           <Right>
             <TouchableOpacity
@@ -193,6 +186,26 @@ class PostList extends Component {
               </View>
             </TouchableOpacity>
           </Right>
+        </CardItem>
+        <CardItem>
+          <Body>
+            <Text>
+              <Icon
+                type="FontAwesome"
+                name="clock-o"
+                style={{ fontSize: 17 }}
+              />{' '}
+              <TimeAgo time={post.createdOn.toDate()} />{' '}
+              {post.ownerUsername && 'by'}{' '}
+              <Text style={byText === 'you' ? styles.bySelfStyle : null}>
+                {byText}
+              </Text>
+            </Text>
+            <Text>
+              <Icon type="FontAwesome" name="globe" style={{ fontSize: 17 }} />{' '}
+              {distText}
+            </Text>
+          </Body>
         </CardItem>
       </Card>
     );
