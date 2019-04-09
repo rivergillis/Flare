@@ -25,11 +25,11 @@ import * as PostListActions from '../actions/postList';
 
 const styles = StyleSheet.create({
   cardBodyStyle: {
-    flexBasis: '35%',
+    flexBasis: '55%',
   },
   cardIconsStyle: {
     flexDirection: 'row',
-    flexBasis: '55%',
+    flexBasis: '35%',
   },
   timePostedStyle: {
     color: '#5e5e5e',
@@ -140,6 +140,7 @@ class PostList extends Component {
     const { postComments, postReposts, userData } = this.props;
     const comments = postComments[post.docId];
     const numComments = comments ? comments.length : 0;
+    const commentsText = `${numComments} comments`;
 
     // const byText = post.ownerUsername ? `${post.ownerUsername}` : '';
     const byText =
@@ -181,9 +182,7 @@ class PostList extends Component {
                     }
                     name="md-repeat"
                   />
-                  {` ${post.numReposts}    `}
-                  <Icon name="md-chatboxes" />
-                  {` ${numComments}`}
+                  {` ${post.numReposts}`}
                 </Text>
               </View>
             </TouchableOpacity>
@@ -207,6 +206,12 @@ class PostList extends Component {
               <Icon type="FontAwesome" name="globe" style={{ fontSize: 17 }} />{' '}
               {distText}
             </Text>
+            {numComments > 0 && (
+              <Text>
+                <Icon name="md-chatboxes" style={{ fontSize: 17 }} />{' '}
+                {commentsText}
+              </Text>
+            )}
           </Body>
         </CardItem>
       </Card>
