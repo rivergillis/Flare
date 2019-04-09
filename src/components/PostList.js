@@ -9,7 +9,6 @@ import {
   CardItem,
   Icon,
   Right,
-  Left,
   Body,
   View,
   Fab,
@@ -54,6 +53,7 @@ class PostList extends Component {
     this.state = {
       currentGeo: null, // currentGeo.coords.latitude
       geoError: null,
+      newButtonActive: true,
     };
   }
 
@@ -127,6 +127,22 @@ class PostList extends Component {
     }
     const { repostPost } = this.props;
     repostPost(post, canRepost);
+  };
+
+  onNewButtonPress = () => {
+    const { newButtonActive } = this.state;
+    if (newButtonActive) {
+      return;
+    }
+    this.setState({ newButtonActive: true });
+  };
+
+  onHotButtonPress = () => {
+    const { newButtonActive } = this.state;
+    if (!newButtonActive) {
+      return;
+    }
+    this.setState({ newButtonActive: false });
   };
 
   renderPost = post => {
@@ -205,7 +221,7 @@ class PostList extends Component {
 
   render() {
     const { posts, navigation, initialLoad } = this.props;
-    const { geoError, currentGeo } = this.state;
+    const { geoError, currentGeo, newButtonActive } = this.state;
 
     if (geoError && initialLoad) {
       return (
@@ -263,7 +279,11 @@ class PostList extends Component {
           hasSegment
         />
         <Segment>
-          <Button first active>
+          <Button
+            first
+            active={newButtonActive}
+            onPress={this.onNewButtonPress}
+          >
             <Text>new</Text>
             <Icon
               style={{ marginLeft: '0%' }}
@@ -271,7 +291,11 @@ class PostList extends Component {
               name="newspaper"
             />
           </Button>
-          <Button last>
+          <Button
+            last
+            active={!newButtonActive}
+            onPress={this.onHotButtonPress}
+          >
             <Text>hot</Text>
             <Icon
               style={{ marginLeft: '0%' }}
