@@ -28,14 +28,16 @@ const canDisplayPost = (post, userLat, userLong) => {
     }
   );
 
+  const numReposts = post.numReposts ? post.numReposts : 1;
+
   // Post too far away.
-  const allowableDist = 200 * post.reposts;
+  const allowableDist = 200 * numReposts;
   if (dist > allowableDist) {
     return false;
   }
 
   // Post too old
-  const expirationDate = addDays(post.createdOn.toDate(), post.reposts);
+  const expirationDate = addDays(post.createdOn.toDate(), numReposts);
   if (new Date() > expirationDate) {
     // Delete posts that are too old.
     firebase
@@ -71,6 +73,7 @@ const filterPostList = (dispatch, userLat, userLong, querySnapshot) => {
       posts.push(data);
       // Since we have the posts here, lets go ahead and get the comments
       fetchPostComments(dispatch, postDocId);
+      // TODO: this really only needed to see if user has reposted, so put repostedPosts as postIds in user doc
       fetchPostReposts(dispatch, postDocId);
     }
   });

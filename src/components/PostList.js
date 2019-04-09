@@ -34,6 +34,10 @@ const styles = StyleSheet.create({
     color: '#5e5e5e',
     fontStyle: 'italic',
   },
+  bySelfStyle: {
+    fontStyle: 'normal',
+    fontWeight: 'bold',
+  },
   regularRepostIconStyle: {
     color: 'black',
   },
@@ -112,6 +116,11 @@ class PostList extends Component {
   onRepostButtonPress = (post, canRepost, shouldIgnore) => {
     if (shouldIgnore) {
       console.log('ignoring repost request');
+      Toast.show({
+        text: "You can't repost that!",
+        buttonText: 'Okay',
+        duration: 2500,
+      });
       return;
     }
     const { repostPost } = this.props;
@@ -123,7 +132,9 @@ class PostList extends Component {
     const comments = postComments[post.docId];
     const numComments = comments ? comments.length : 0;
 
-    const byText = post.ownerUsername ? `by ${post.ownerUsername}` : '';
+    // const byText = post.ownerUsername ? `${post.ownerUsername}` : '';
+    const byText =
+      post.ownerId === userData.userId ? 'you' : post.ownerUsername;
 
     // Todo: check if the userId is in the 'reposted' collection for the post
     // const canRepost = postReposts[post.docId].userHasReposted;
@@ -141,7 +152,15 @@ class PostList extends Component {
           <Body style={styles.cardBodyStyle}>
             <Text>{post.text}</Text>
             <Text style={styles.timePostedStyle}>
-              Posted <TimeAgo time={post.createdOn.toDate()} /> {byText}
+              Posted <TimeAgo time={post.createdOn.toDate()} />{' '}
+              {post.ownerUsername && 'by'}{' '}
+              <Text
+                style={
+                  byText === 'you' ? styles.bySelfStyle : styles.timePostedStyle
+                }
+              >
+                {byText}
+              </Text>
             </Text>
           </Body>
           <Right>
