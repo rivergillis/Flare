@@ -25,7 +25,7 @@ import * as PostListActions from '../actions/postList';
 
 const styles = StyleSheet.create({
   cardBodyStyle: {
-    flexBasis: '25%',
+    flexBasis: '35%',
   },
   cardIconsStyle: {
     flexDirection: 'row',
@@ -172,17 +172,19 @@ class PostList extends Component {
               }
             >
               <View style={styles.cardIconsStyle}>
-                <Icon
-                  style={
-                    canRepost
-                      ? styles.regularRepostIconStyle
-                      : styles.repostedRepostIconStyle
-                  }
-                  name="md-repeat"
-                />
-                <Text>{` ${post.numReposts}    `}</Text>
-                <Icon name="md-chatboxes" />
-                <Text>{` ${numComments}`}</Text>
+                <Text>
+                  <Icon
+                    style={
+                      canRepost
+                        ? styles.regularRepostIconStyle
+                        : styles.repostedRepostIconStyle
+                    }
+                    name="md-repeat"
+                  />
+                  {` ${post.numReposts}    `}
+                  <Icon name="md-chatboxes" />
+                  {` ${numComments}`}
+                </Text>
               </View>
             </TouchableOpacity>
           </Right>
