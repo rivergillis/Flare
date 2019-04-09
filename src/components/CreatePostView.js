@@ -1,18 +1,6 @@
 import React, { Component } from 'react';
-import { StyleSheet, TouchableWithoutFeedback, TextInput} from 'react-native';
-import {
-  Container,
-  Content,
-  Text,
-  Button,
-  Form,
-  Item,
-  Input,
-  Label,
-  Toast,
-  View,
-  Right,
-} from 'native-base';
+import { StyleSheet, TouchableWithoutFeedback, TextInput } from 'react-native';
+import { Container, Content, Text, Toast, View, Right } from 'native-base';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import SimpleHeader from './common/SimpleHeader';
@@ -24,7 +12,6 @@ const stylesPost = StyleSheet.create({
   ContPostButton: {
     paddingTop: 230,
     alignItems: 'center',
-    
   },
   buttonPost: {
     marginBottom: 30,
@@ -54,7 +41,7 @@ const stylesPost = StyleSheet.create({
     borderColor: '#A9A9A9',
     color: '#e21d16',
     fontSize: 20,
-  }
+  },
 });
 
 class CreatePostView extends Component {
@@ -65,9 +52,10 @@ class CreatePostView extends Component {
   componentDidUpdate = () => {
     const { makePost, ackPostSuccess } = this.props;
     if (makePost.postSuccess) {
+      Toast.show({ text: 'Post success!', buttonText: 'Okay', duration: 2500 });
       ackPostSuccess();
       const { navigation } = this.props;
-      navigation.navigate('PostList', { postSuccess: true });
+      navigation.navigate('PostList');
     }
   };
 
@@ -97,13 +85,15 @@ class CreatePostView extends Component {
       <Container>
         <SimpleHeader title="Create Post" isBack navigation={navigation} />
         <Content>
-          <View style = {stylesPost.containerTextBox}>
+          <View style={stylesPost.containerTextBox}>
             <TextInput
               style={stylesPost.searchBar}
               placeholder="What's up?"
-              placeholderTextColor= "red"
+              placeholderTextColor="red"
               value={postText}
-              onChangeText={text => this.setState({ postText: text })}
+              onChangeText={text =>
+                this.setState({ postText: text.slice(0, 180) })
+              }
               disabled={makePost.isPosting}
               multiline={true}
             />
@@ -129,8 +119,6 @@ class CreatePostView extends Component {
               </View>
             </TouchableWithoutFeedback>
           </View>
-
-
         </Content>
       </Container>
     );

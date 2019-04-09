@@ -91,14 +91,6 @@ class PostList extends Component {
     );
   }
 
-  componentDidUpdate() {
-    const { navigation } = this.props;
-    const postSuccess = navigation.getParam('postSuccess', null);
-    if (postSuccess) {
-      Toast.show({ text: 'Post success!', buttonText: 'Okay', duration: 2500 });
-    }
-  }
-
   onMakePostButtonPress = () => {
     const { navigation } = this.props;
     const { currentGeo } = this.state;
@@ -342,6 +334,7 @@ function mapStateToProps(state) {
     postReposts: state.PostListReducer.postReposts,
     initialLoad: state.PostListReducer.initialLoad,
     sortMethod: state.PostListReducer.sortMethod,
+    makePost: state.MakePostReducer,
   };
 }
 
