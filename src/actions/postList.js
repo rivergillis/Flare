@@ -82,9 +82,6 @@ const filterPostList = (dispatch, userLat, userLong, querySnapshot) => {
     `Done filtering posts in ${new Date().getMilliseconds() - startTime}ms`
   );
 
-  // Sort the posts by date
-  posts.sort((a, b) => b.createdOn.toDate() - a.createdOn.toDate());
-
   dispatch({ type: types.FETCH_POST_SUCCESS, payload: posts });
 };
 
@@ -118,7 +115,6 @@ export const subscribeFetchPostList = (
 };
 
 export const repostPost = (post, canRepost) => dispatch => {
-  console.log('repopo');
   const userId = firebase.auth().currentUser.uid;
 
   if (canRepost) {
@@ -148,4 +144,9 @@ export const repostPost = (post, canRepost) => dispatch => {
     type: types.UPDATE_REPOST_CACHE,
     payload: { postId: post.docId, isReposted: canRepost, userId },
   });
+};
+
+export const setSortMethod = sortMethod => dispatch => {
+  dispatch({ type: types.SET_SORT_METHOD, payload: sortMethod });
+  dispatch({ type: types.SORT_POST_CACHE, payload: sortMethod });
 };

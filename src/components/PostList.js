@@ -53,7 +53,6 @@ class PostList extends Component {
     this.state = {
       currentGeo: null, // currentGeo.coords.latitude
       geoError: null,
-      newButtonActive: true,
     };
   }
 
@@ -119,7 +118,7 @@ class PostList extends Component {
     if (shouldIgnore) {
       console.log('ignoring repost request');
       Toast.show({
-        text: "You can't repost that!",
+        text: "That's your own post!",
         buttonText: 'Okay',
         duration: 2500,
       });
@@ -130,19 +129,19 @@ class PostList extends Component {
   };
 
   onNewButtonPress = () => {
-    const { newButtonActive } = this.state;
-    if (newButtonActive) {
+    const { sortMethod, setSortMethod } = this.props;
+    if (sortMethod === 'new') {
       return;
     }
-    this.setState({ newButtonActive: true });
+    setSortMethod('new');
   };
 
   onHotButtonPress = () => {
-    const { newButtonActive } = this.state;
-    if (!newButtonActive) {
+    const { sortMethod, setSortMethod } = this.props;
+    if (sortMethod === 'hot') {
       return;
     }
-    this.setState({ newButtonActive: false });
+    setSortMethod('hot');
   };
 
   renderPost = post => {
@@ -212,16 +211,17 @@ class PostList extends Component {
       subscribeFetchPostList,
       loadingPostList,
       currentSubscription,
+      sortMethod,
     } = this.props;
     if (loadingPostList) {
       return;
     }
-    subscribeFetchPostList(lat, lon, currentSubscription);
+    subscribeFetchPostList(lat, lon, currentSubscription, sortMethod);
   };
 
   render() {
-    const { posts, navigation, initialLoad } = this.props;
-    const { geoError, currentGeo, newButtonActive } = this.state;
+    const { posts, navigation, initialLoad, sortMethod } = this.props;
+    const { geoError, currentGeo } = this.state;
 
     if (geoError && initialLoad) {
       return (
@@ -281,7 +281,7 @@ class PostList extends Component {
         <Segment>
           <Button
             first
-            active={newButtonActive}
+            active={sortMethod === 'new'}
             onPress={this.onNewButtonPress}
           >
             <Text>new</Text>
@@ -293,7 +293,7 @@ class PostList extends Component {
           </Button>
           <Button
             last
-            active={!newButtonActive}
+            active={sortMethod === 'hot'}
             onPress={this.onHotButtonPress}
           >
             <Text>hot</Text>
@@ -341,6 +341,7 @@ function mapStateToProps(state) {
     postComments: state.PostListReducer.postComments,
     postReposts: state.PostListReducer.postReposts,
     initialLoad: state.PostListReducer.initialLoad,
+    sortMethod: state.PostListReducer.sortMethod,
   };
 }
 

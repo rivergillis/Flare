@@ -7,6 +7,19 @@ const INITIAL_STATE = {
   postReposts: {},
   currentSubscription: null,
   initialLoad: false,
+  sortMethod: 'new',
+};
+
+const sortPosts = (postList, sortMethod) => {
+  const sortedPosts = [...postList];
+  if (sortMethod === 'new') {
+    sortedPosts.sort((a, b) => b.createdOn.toDate() - a.createdOn.toDate());
+  } else if (sortMethod === 'hot') {
+    sortedPosts.sort((a, b) => a.createdOn.toDate() - b.createdOn.toDate());
+  } else {
+    console.error(`Invalid sorting method for the posts: ${sortMethod}`);
+  }
+  return sortedPosts;
 };
 
 // look at the action type
@@ -19,8 +32,10 @@ const PostListReducer = (state = INITIAL_STATE, action) => {
       return { ...state, initialLoad: action.payload };
     case types.SUBSCRIBE_FETCH_POST_LIST:
       return { ...state, currentSubscription: action.payload };
-    case types.FETCH_POST_SUCCESS:
-      return { ...state, posts: action.payload, initialLoad: false };
+    case types.FETCH_POST_SUCCESS: {
+      const sortedPosts = sortPosts(action.payload, state.sortMethod);
+      return { ...state, posts: sortedPosts, initialLoad: false };
+    }
     case types.FETCH_POST_COMMENTS_SUCCESS: {
       // TODO: Put these directly into the posts object
       const newPostComments = { ...state.postComments, ...action.payload };
@@ -29,6 +44,12 @@ const PostListReducer = (state = INITIAL_STATE, action) => {
     case types.FETCH_POST_REPOSTS_SUCCESS: {
       const newPostReposts = { ...state.postReposts, ...action.payload };
       return { ...state, postReposts: newPostReposts };
+    }
+    case types.SET_SORT_METHOD:
+      return { ...state, sortMethod: action.payload };
+    case types.SORT_POST_CACHE: {
+      const sortedPosts = sortPosts(state.posts, action.payload);
+      return { ...state, posts: sortedPosts };
     }
     case types.UPDATE_REPOST_CACHE: {
       const { postId, isReposted, userId } = action.payload;

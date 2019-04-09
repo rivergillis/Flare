@@ -30,3 +30,6 @@ export const ACK_POST_SUCCESS = 'ack_post_success';
 export const CREATE_COMMENT = 'create_comment';
 export const CREATE_COMMENT_SUCCESS = 'create_comment_success';
 export const ACK_COMMENT_SUCCESS = 'ack_comment_success';
+
+export const SET_SORT_METHOD = 'set_sort_method';
+export const SORT_POST_CACHE = 'sort_post_cache';
