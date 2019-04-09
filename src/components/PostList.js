@@ -9,11 +9,13 @@ import {
   CardItem,
   Icon,
   Right,
+  Left,
   Body,
   View,
   Fab,
   Toast,
   Spinner,
+  Segment,
 } from 'native-base';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -258,7 +260,26 @@ class PostList extends Component {
           title="Flare Feed"
           icon="ios-settings"
           onPress={() => navigation.navigate('Settings')}
+          hasSegment
         />
+        <Segment>
+          <Button first active>
+            <Text>new</Text>
+            <Icon
+              style={{ marginLeft: '0%' }}
+              type="MaterialCommunityIcons"
+              name="newspaper"
+            />
+          </Button>
+          <Button last>
+            <Text>hot</Text>
+            <Icon
+              style={{ marginLeft: '0%' }}
+              type="MaterialCommunityIcons"
+              name="fire"
+            />
+          </Button>
+        </Segment>
         <Content>
           {posts.map(post => this.renderPost(post))}
           {currentGeo && currentGeo.coords && (
