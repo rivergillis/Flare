@@ -45,6 +45,9 @@ const styles = StyleSheet.create({
   repostedRepostIconStyle: {
     color: '#e21d16',
   },
+  locationPosition: {
+    paddingTop: '20%',
+  },
 });
 
 class PostList extends Component {
@@ -191,19 +194,26 @@ class PostList extends Component {
         <CardItem>
           <Body>
             <Text>
+             <Icon 
+                type="FontAwesome"
+                name="user-circle"
+                style={{ fontSize: 17}}
+              />{' '}
+              {post.ownerUsername}{' '}
+            </Text>
+            <Text>
               <Icon
                 type="FontAwesome"
                 name="clock-o"
                 style={{ fontSize: 17 }}
               />{' '}
               <TimeAgo time={post.createdOn.toDate()} />{' '}
-              {post.ownerUsername && 'by'}{' '}
-              <Text style={byText === 'you' ? styles.bySelfStyle : null}>
-                {byText}
-              </Text>
             </Text>
             <Text>
-              <Icon type="FontAwesome" name="globe" style={{ fontSize: 17 }} />{' '}
+              <Icon 
+              type="FontAwesome" 
+              name="globe" 
+              style={{ fontSize: 17 }} />{' '}
               {distText}
             </Text>
             {numComments > 0 && (
@@ -324,7 +334,7 @@ class PostList extends Component {
               {currentGeo.coords.longitude})
             </Text>
           )}
-          <View style={{ paddingTop: '20%' }} />
+          <View style={ styles.locationPosition } />
         </Content>
         <View>
           <Fab
