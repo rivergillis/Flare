@@ -37,7 +37,6 @@ const stylesPost = StyleSheet.create({
     borderWidth: 1,
     width: 330,
     height: 300,
-    backgroundColor: '#D3D3D3',
     borderColor: '#A9A9A9',
     color: '#e21d16',
     fontSize: 20,
@@ -88,8 +87,8 @@ class CreatePostView extends Component {
           <View style={stylesPost.containerTextBox}>
             <TextInput
               style={stylesPost.searchBar}
-              placeholder="What's up?"
-              placeholderTextColor="red"
+              placeholder=" What's up?"
+              placeholderTextColor="black"
               value={postText}
               onChangeText={text =>
                 this.setState({ postText: text.slice(0, 180) })

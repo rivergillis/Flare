@@ -164,10 +164,10 @@ class PostList extends Component {
       roundedDist < 10 ? 'right here' : `${roundedDist} meters away`;
 
     return (
-      <Card key={post.text + byText}>
+      <Card style={{ marginLeft: 10, marginRight: 10 }} key={post.text + byText}>
         <CardItem button bordered onPress={() => this.onPostPress(post)}>
           <Body style={styles.cardBodyStyle}>
-            <Text>{post.text}</Text>
+            <Text style={{ fontSize: 17 }}>{post.text}</Text>
           </Body>
           <Right>
             <TouchableOpacity
@@ -197,7 +197,7 @@ class PostList extends Component {
              <Icon 
                 type="FontAwesome"
                 name="user-circle"
-                style={{ fontSize: 17}}
+                style={{ fontSize: 14}}
               />{' '}
               {post.ownerUsername}{' '}
             </Text>
@@ -205,7 +205,7 @@ class PostList extends Component {
               <Icon
                 type="FontAwesome"
                 name="clock-o"
-                style={{ fontSize: 17 }}
+                style={{ fontSize: 15 }}
               />{' '}
               <TimeAgo time={post.createdOn.toDate()} />{' '}
             </Text>
@@ -213,12 +213,12 @@ class PostList extends Component {
               <Icon 
               type="FontAwesome" 
               name="globe" 
-              style={{ fontSize: 17 }} />{' '}
+              style={{ fontSize: 15 }} />{' '}
               {distText}
             </Text>
             {numComments > 0 && (
               <Text>
-                <Icon name="md-chatboxes" style={{ fontSize: 17 }} />{' '}
+                <Icon name="md-chatboxes" style={{ fontSize: 15 }} />{' '}
                 {commentsText}
               </Text>
             )}

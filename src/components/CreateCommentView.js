@@ -98,7 +98,7 @@ class CreateCommentView extends Component {
             <TextInput
               style={stylesComments.searchBarComment}
               placeholder=" Share your thoughts!"
-              placeholderTextColor="red"
+              placeholderTextColor="black"
               value={commentText}
               onChangeText={text => this.setState({ commentText: text })}
               disabled={makeComment.isCommenting}

@@ -20,20 +20,24 @@ import SimpleHeader from './common/SimpleHeader';
 import * as PostViewActions from '../actions/postView';
 
 const styles = StyleSheet.create({
+  cardBodyStyle: {
+    flexBasis: '55%',
+  },
   cardIconsStyle: {
     flexDirection: 'row',
-    flexBasis: '0%',
+    flexBasis: '35%',
   },
   timePostedStyle: {
     color: '#5e5e5e',
     fontStyle: 'italic',
   },
   postStyle: {
-    height:100,
+    height:125,
   },
-  commentsStyle: {
-    flexBasis: '0%',
-  }
+  ogPostFont: {
+    fontSize: 17,
+    fontStyle: 'normal',
+  },
 });
 
 class PostView extends Component {
@@ -82,30 +86,30 @@ class PostView extends Component {
     const byText = comment.ownerUsername ? `by ${comment.ownerUsername}` : '';
 
     return (
-      <Card key={comment.text + byText} bordered>
+      <Card style={{ marginLeft: 10, marginRight: 10 }} key={comment.text + byText} bordered>
           <CardItem header bordered>
-          <Text>{comment.text}</Text>
+          <Text style={{ fontSize: 17 }}>{comment.text}</Text>
           </CardItem>
-          <Body>
-          <View style={{ flexDirection: 'column' }}>
-          <Text>
-              <Icon 
-                type="FontAwesome"
-                name="user-circle"
-                style={{ fontSize: 17}}
-              /> {' '}
-              <Text>{comment.ownerUsername}</Text>
-          </Text>
-          <Text>
-              <Icon 
-                type="FontAwesome"
-                name="clock-o"
-                style={{ fontSize: 17}}
-              /> {' '}
-              <TimeAgo style={styles.timePostedStyle} time={comment.createdOn.toDate()} /> {' '}
-          </Text>
-          </View>
-          </Body>
+          <CardItem>
+           <Body>
+              <Text>
+                  <Icon 
+                    type="FontAwesome"
+                    name="user-circle"
+                    style={{ fontSize: 14 }}
+                  /> {' '}
+                  <Text>{comment.ownerUsername}</Text>{' '}
+              </Text>
+              <Text>
+                  <Icon 
+                    type="FontAwesome"
+                    name="clock-o"
+                    style={{ fontSize: 15}}
+                  /> {' '}
+                  Posted <TimeAgo style={ styles.timePostedStyle } time={ comment.createdOn.toDate() } /> {' '}
+              </Text>
+            </Body>
+          </CardItem>
       </Card>
     );
   };
@@ -120,18 +124,12 @@ class PostView extends Component {
       <Container>
         <SimpleHeader title="Flare Post" isBack navigation={navigation} />
         <Content>
-        <Card transparent>
+        <Card>
           <CardItem header style={styles.cardHeaderStyle}>
-            <Text style={styles.usernameStyle}>
+            <Text style={styles.ogPostFont}>
               {post.text}
             </Text>
           </CardItem>
-          <Body style={styles.cardBodyStyle}>
-            <Text>{` ${post.ownerUsername} `}</Text>
-            <Text style={styles.timePostedStyle}>
-              Posted <TimeAgo time={post.createdOn.toDate()} />
-            </Text>
-          </Body>
       </Card>
           {comments.map(comment => this.renderComments(comment))}
         </Content>
