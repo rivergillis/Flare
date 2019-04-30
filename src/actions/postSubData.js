@@ -35,6 +35,7 @@ export const fetchPostComments = async (dispatch, postDocId) => {
   }
 };
 
+// Fetch every repost for a certain post document
 export const fetchPostReposts = async (dispatch, postDocId) => {
   console.log(`fetching reposts for post ${postDocId}...`);
   dispatch({ type: types.FETCH_POST_REPOSTS, payload: postDocId });

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style type="text/css">
+      body{
+        margin:40px auto;
+        max-width:650px;
+        line-height:1.6;
+        font-size:18px;
+        color:#444;
+        padding:0 10px}
+      h1,h2,h3 {line-height:1.2}
+      code {background-color: #ffbaba}
+    </style>
+    <meta charset="UTF-8">
+    <title>How to run Flare</title>
+  </head>
+
+  <body>
+    <h1>How to Run Flare</h1>
+    <p>Installation is different for each platform. Check out <a href="https://facebook.github.io/react-native/docs/getting-started">this guide for the latest React Native install instructions.</a></p>
+    <ol>
+      <li>Install NodeJS from <a href="https://nodejs.org/en/">this website</a></li>
+      <li>Install React Native. Run <code>npm install -g react-native-cli</code></li>
+      <li>Install the dependencies. Run <code>npm install</code> from the project folder</li>
+      <li>Link the native code. Run <code>react-native link</code></li>
+      <li>If you're on mac, install Xcode and the Xcode command line tools. Then run <code>react-native run-ios</code></li>
+      <li>If you're on windows or linux, install Android Studio, Android SDK 28, Google APIs Intel x86 Atom System Image, set $ANDROID_HOME to your sdk location, add c:\Users\YOUR_USERNAME\AppData\Local\Android\Sdk\platform-tools to your system path, open up an Android Virtual Device, and run <code>react-native run-android</code></li>
+    </ol>
+    <p>If you're running this several months after submission (in May of 2019), the Firebase server has likely been taken down. You'll need to create a new Firebase project using <code>firebase init</code> with support for Cloud Firestore, Authentication, and Cloud Functions. Then run <code>firebase deploy</code> to deploy to your new project. Finally, change index.js to use your new Firebase API key and project information.</p>
+  </body>
+
+</html>

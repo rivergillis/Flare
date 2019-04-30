@@ -66,12 +66,14 @@ const stylesSignUp = StyleSheet.create({
   },
 });
 
+// Render the login page
 class LoginPage extends Component {
   state = {
     email: 'test@test.com',
     password: 'password',
   };
 
+  // Check if we logged in. If so, nav to postlist.
   componentDidUpdate = () => {
     const { auth, ackLoginFail } = this.props;
     if (auth.user) {
@@ -83,13 +85,14 @@ class LoginPage extends Component {
     }
   };
 
-  // Just log in for now
+  // try to log in
   onLoginPress = () => {
     const { loginUser } = this.props;
     const { email, password } = this.state;
     loginUser(email, password);
   };
 
+  // nav to signup
   onSignupPress = () => {
     const { navigation } = this.props;
     navigation.navigate('Signup');

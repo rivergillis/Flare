@@ -1,6 +1,7 @@
 import firebase from 'firebase';
 import * as types from './types';
 
+// Fetches data on the user doc
 const fetchUserData = async dispatch => {
   const userId = firebase.auth().currentUser.uid;
   try {
@@ -30,11 +31,13 @@ export const ackLoginFail = () => dispatch => {
   dispatch({ type: types.ACK_LOGIN_FAIL });
 };
 
+// Store the login token
 export const loginUserSuccess = async (dispatch, user) => {
   await fetchUserData(dispatch);
   dispatch({ type: types.LOGIN_SUCCESS, payload: user });
 };
 
+// Try to log in
 export const loginUser = (email, password) => dispatch => {
   dispatch({ type: types.BEGIN_LOGIN });
   firebase
@@ -47,6 +50,7 @@ export const loginUser = (email, password) => dispatch => {
     });
 };
 
+// Ack the success and log in
 const createUserSuccess = async (dispatch, user, username) => {
   const userId = firebase.auth().currentUser.uid;
   try {
@@ -61,6 +65,7 @@ const createUserSuccess = async (dispatch, user, username) => {
 };
 
 // TODO: Save this in the database somewhere?
+// Try to make a user
 export const createUserAndLogin = (email, password, username) => dispatch => {
   dispatch({ type: types.BEGIN_CREATE_USER });
   firebase
@@ -73,11 +78,13 @@ export const createUserAndLogin = (email, password, username) => dispatch => {
     });
 };
 
+// Save the user data after update
 const saveUserDataSuccess = (dispatch, newUserData) => {
   console.log('updated the user data');
   dispatch({ type: types.SAVE_USER_DATA_SUCCESS, payload: newUserData });
 };
 
+// Try to save the user data (like their username)
 export const saveUserData = (oldUserData, newUserData) => dispatch => {
   dispatch({ type: types.SAVE_USER_DATA });
 

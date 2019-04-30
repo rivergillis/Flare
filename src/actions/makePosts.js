@@ -9,6 +9,7 @@ export const ackPostSuccess = () => dispatch => {
   dispatch({ type: types.ACK_POST_SUCCESS });
 };
 
+// Add ourselves as a repost for the post we just made
 const createPostSuccess = (docRef, dispatch) => {
   console.log(docRef.id);
   // Now that we have the document, add ourself as a repost...
@@ -24,6 +25,7 @@ const createPostSuccess = (docRef, dispatch) => {
     .catch(err => console.log(err));
 };
 
+// Try to create a new post in firebase
 export const createPost = (postText, geoLat, geoLong, username) => dispatch => {
   console.log('Making post...');
   dispatch({ type: types.CREATE_POST });
@@ -37,6 +39,7 @@ export const createPost = (postText, geoLat, geoLong, username) => dispatch => {
     numReposts: 0,
   };
 
+  // Use geofirestore to geohash the post
   const gfs = new GeoFirestore(firebase.firestore());
   gfs
     .collection('posts')

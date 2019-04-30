@@ -14,6 +14,7 @@ const createCommentSuccess = (docRef, dispatch) => {
   dispatch({ type: types.CREATE_COMMENT_SUCCESS });
 };
 
+// Try to create and upload a new comment to firebase
 export const createComment = (commentText, username, postDocId) => {
   return dispatch => {
     console.log('Making comment...');

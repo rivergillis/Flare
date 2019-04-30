@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {StyleSheet, TouchableWithoutFeedback} from 'react-native';
+import { StyleSheet, TouchableWithoutFeedback } from 'react-native';
 import {
   Container,
   Content,
@@ -50,6 +50,7 @@ const stylesSignUp = StyleSheet.create({
   },
 });
 
+// Render the signup page
 class SignupPage extends Component {
   state = {
     email: '',
@@ -57,6 +58,7 @@ class SignupPage extends Component {
     username: '',
   };
 
+  // Check if the user signed up. Nav if so, toast otherwise
   componentDidUpdate = () => {
     const { auth, ackLoginFail } = this.props;
     if (auth.user) {
@@ -68,6 +70,7 @@ class SignupPage extends Component {
     }
   };
 
+  // Try to sign up and log in
   onSignupPress = () => {
     const { createUserAndLogin } = this.props;
     const { email, password, username } = this.state;
@@ -84,9 +87,9 @@ class SignupPage extends Component {
       <Container>
         <SimpleHeader title="Sign up" isBack navigation={navigation} />
         <Content>
-          <View style = {{alignItems:'center', padding: 30}}>
-            <Text style = {stylesLogo.flareLogo}>Flare</Text>
-          </View>  
+          <View style={{ alignItems: 'center', padding: 30 }}>
+            <Text style={stylesLogo.flareLogo}>Flare</Text>
+          </View>
           <Form>
             <Item floatingLabel>
               <Label>Username</Label>
@@ -111,20 +114,18 @@ class SignupPage extends Component {
               />
             </Item>
           </Form>
-          <View style = {stylesSignUp.ContSignUp}>
-          <TouchableWithoutFeedback
-            onPress={this.onSignupPress}
-            >
-            <View
-              style={
-                auth.creatingUser
-                  ? stylesSignUp.buttonDisabledSignUp
-                  : stylesSignUp.buttonSignUp
-              }
-            >
-            <Text style = {stylesSignUp.buttonTextSignUp}>{signupText}</Text>
-            </View>
-          </TouchableWithoutFeedback>
+          <View style={stylesSignUp.ContSignUp}>
+            <TouchableWithoutFeedback onPress={this.onSignupPress}>
+              <View
+                style={
+                  auth.creatingUser
+                    ? stylesSignUp.buttonDisabledSignUp
+                    : stylesSignUp.buttonSignUp
+                }
+              >
+                <Text style={stylesSignUp.buttonTextSignUp}>{signupText}</Text>
+              </View>
+            </TouchableWithoutFeedback>
           </View>
         </Content>
       </Container>

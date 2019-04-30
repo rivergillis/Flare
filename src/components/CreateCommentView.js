@@ -57,11 +57,13 @@ const stylesComments = StyleSheet.create({
   },
 });
 
+// Make comment form
 class CreateCommentView extends Component {
   state = {
     commentText: '',
   };
 
+  // Check if we made a comment. If so, nav back
   componentDidUpdate = () => {
     const { makeComment, ackCommentSuccess } = this.props;
     if (makeComment.commentSuccess) {
@@ -71,6 +73,7 @@ class CreateCommentView extends Component {
     }
   };
 
+  // Try to make a comment
   onCommentBtnPress = postDocId => {
     const { commentText } = this.state;
     const { createComment, userData } = this.props;

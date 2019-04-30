@@ -5,6 +5,7 @@ import { Root } from 'native-base';
 import store from './store'; // Import the redux store
 import AppContainer from './AppContainer';
 
+// This is the root app component.
 export default class App extends Component {
   render() {
     return (

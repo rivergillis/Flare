@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 import TimeAgo from 'react-native-timeago';
 import {
-  Button,
   Container,
   Content,
   Text,
@@ -32,7 +31,7 @@ const styles = StyleSheet.create({
     fontStyle: 'italic',
   },
   postStyle: {
-    height:125,
+    height: 125,
   },
   ogPostFont: {
     fontSize: 17,
@@ -40,6 +39,7 @@ const styles = StyleSheet.create({
   },
 });
 
+// The post view, render the post and comments
 class PostView extends Component {
   constructor(props) {
     super(props);
@@ -50,23 +50,26 @@ class PostView extends Component {
     // const post = navigation.getParam('post', null);
     // const comments = navigation.getParam('comments', null);
     // const postDocId = post.docId;
-
     // this.setState({post: post});
     // this.setState({comments: comments});
     // this.setState({postDocId: postDocId});
-
     // this.resetFetchSubscription();
-    
   }
 
+  // Check if commented and toast if so
   componentDidUpdate() {
     const { navigation } = this.props;
     const commentSuccess = navigation.getParam('commentSuccess', null);
     if (commentSuccess) {
-      Toast.show({text: "Comment Success!", buttonText: 'Ok', duration: 2500});
+      Toast.show({
+        text: 'Comment Success!',
+        buttonText: 'Ok',
+        duration: 2500,
+      });
     }
   }
 
+  // Make a comment
   onMakeCommentBtnPress = postDocId => {
     const { navigation } = this.props;
     navigation.navigate('CreateCommentView', { postDocId });
@@ -81,35 +84,41 @@ class PostView extends Component {
     subscribeFetchComments(currentSubscription, postDocId);
   };
 
-
+  // Render a comment card
   renderComments = comment => {
-    const byText = comment.ownerUsername ? `by ${comment.ownerUsername}` : '';
-
     return (
-      <Card style={{ marginLeft: 10, marginRight: 10 }} key={comment.text + byText} bordered>
-          <CardItem header bordered>
+      <Card
+        style={{ marginLeft: 10, marginRight: 10 }}
+        key={comment.docId}
+        bordered
+      >
+        <CardItem header bordered>
           <Text style={{ fontSize: 17 }}>{comment.text}</Text>
-          </CardItem>
-          <CardItem>
-           <Body>
-              <Text>
-                  <Icon 
-                    type="FontAwesome"
-                    name="user-circle"
-                    style={{ fontSize: 14 }}
-                  /> {' '}
-                  <Text>{comment.ownerUsername}</Text>{' '}
-              </Text>
-              <Text>
-                  <Icon 
-                    type="FontAwesome"
-                    name="clock-o"
-                    style={{ fontSize: 15}}
-                  /> {' '}
-                  Posted <TimeAgo style={ styles.timePostedStyle } time={ comment.createdOn.toDate() } /> {' '}
-              </Text>
-            </Body>
-          </CardItem>
+        </CardItem>
+        <CardItem>
+          <Body>
+            <Text>
+              <Icon
+                type="FontAwesome"
+                name="user-circle"
+                style={{ fontSize: 14 }}
+              />{' '}
+              <Text>{comment.ownerUsername}</Text>{' '}
+            </Text>
+            <Text>
+              <Icon
+                type="FontAwesome"
+                name="clock-o"
+                style={{ fontSize: 15 }}
+              />{' '}
+              Posted{' '}
+              <TimeAgo
+                style={styles.timePostedStyle}
+                time={comment.createdOn.toDate()}
+              />{' '}
+            </Text>
+          </Body>
+        </CardItem>
       </Card>
     );
   };
@@ -119,18 +128,16 @@ class PostView extends Component {
     const post = navigation.getParam('post', null);
     const comments = navigation.getParam('comments', null);
     const postDocId = post.docId;
- 
+
     return (
       <Container>
         <SimpleHeader title="Flare Post" isBack navigation={navigation} />
         <Content>
-        <Card>
-          <CardItem header style={styles.cardHeaderStyle}>
-            <Text style={styles.ogPostFont}>
-              {post.text}
-            </Text>
-          </CardItem>
-      </Card>
+          <Card>
+            <CardItem header style={styles.cardHeaderStyle}>
+              <Text style={styles.ogPostFont}>{post.text}</Text>
+            </CardItem>
+          </Card>
           {comments.map(comment => this.renderComments(comment))}
         </Content>
         <View>
@@ -138,8 +145,7 @@ class PostView extends Component {
             position="bottomRight"
             containerStyle={{}}
             style={{ backgroundColor: '#e21d16' }}
-            onPress={() => 
-              this.onMakeCommentBtnPress(postDocId)}
+            onPress={() => this.onMakeCommentBtnPress(postDocId)}
           >
             <Icon name="md-create" />
           </Fab>

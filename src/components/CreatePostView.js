@@ -43,11 +43,13 @@ const stylesPost = StyleSheet.create({
   },
 });
 
+// render the make post form
 class CreatePostView extends Component {
   state = {
     postText: '',
   };
 
+  // check if we made a post. If so, nav back to post list
   componentDidUpdate = () => {
     const { makePost, ackPostSuccess } = this.props;
     if (makePost.postSuccess) {
@@ -58,6 +60,7 @@ class CreatePostView extends Component {
     }
   };
 
+  // Try to make a post for the current geo
   onPostBtnPress = geo => {
     const { postText } = this.state;
     const { createPost, userData } = this.props;

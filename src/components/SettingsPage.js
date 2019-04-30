@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, TouchableWithoutFeedback} from 'react-native';
+import { StyleSheet, TouchableWithoutFeedback } from 'react-native';
 import {
   Container,
   Content,
@@ -22,7 +22,6 @@ const stylesSettings = StyleSheet.create({
   ContSettingButton: {
     paddingTop: 520,
     alignItems: 'center',
-    
   },
   buttonSetting: {
     marginBottom: 30,
@@ -42,7 +41,7 @@ const stylesSettings = StyleSheet.create({
   },
 });
 
-
+// Render the settings page, allows the user to change their username currently
 class SettingsPage extends Component {
   constructor(args) {
     super(args);
@@ -50,6 +49,7 @@ class SettingsPage extends Component {
     this.state = { username: auth.userData.username };
   }
 
+  // Update the username
   onSavePress = () => {
     const { saveUserData, auth } = this.props;
     const { username } = this.state;

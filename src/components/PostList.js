@@ -50,6 +50,7 @@ const styles = StyleSheet.create({
   },
 });
 
+// The Flare Feed, render all nearby posts and update the geolocation and posts.
 class PostList extends Component {
   constructor(props) {
     super(props);
@@ -94,12 +95,14 @@ class PostList extends Component {
     );
   }
 
+  // Nav to make post screen
   onMakePostButtonPress = () => {
     const { navigation } = this.props;
     const { currentGeo } = this.state;
     navigation.navigate('CreatePostView', { currentGeo });
   };
 
+  // Nav to post view
   onPostPress = post => {
     const { navigation, postComments } = this.props;
     navigation.navigate('PostView', {
@@ -109,6 +112,7 @@ class PostList extends Component {
     });
   };
 
+  // Try to repost or unrepost
   onRepostButtonPress = (post, canRepost, shouldIgnore) => {
     if (shouldIgnore) {
       console.log('ignoring repost request');
@@ -123,6 +127,7 @@ class PostList extends Component {
     repostPost(post, canRepost);
   };
 
+  // Change sorting to new
   onNewButtonPress = () => {
     const { sortMethod, setSortMethod } = this.props;
     if (sortMethod === 'new') {
@@ -131,6 +136,7 @@ class PostList extends Component {
     setSortMethod('new');
   };
 
+  // Change sorting to hot
   onHotButtonPress = () => {
     const { sortMethod, setSortMethod } = this.props;
     if (sortMethod === 'hot') {
@@ -139,6 +145,7 @@ class PostList extends Component {
     setSortMethod('hot');
   };
 
+  // Render a post as a card
   renderPost = post => {
     const { postComments, postReposts, userData } = this.props;
     const comments = postComments[post.docId];
@@ -164,7 +171,10 @@ class PostList extends Component {
       roundedDist < 10 ? 'right here' : `${roundedDist} meters away`;
 
     return (
-      <Card style={{ marginLeft: 10, marginRight: 10 }} key={post.text + byText}>
+      <Card
+        style={{ marginLeft: 10, marginRight: 10 }}
+        key={post.text + byText}
+      >
         <CardItem button bordered onPress={() => this.onPostPress(post)}>
           <Body style={styles.cardBodyStyle}>
             <Text style={{ fontSize: 17 }}>{post.text}</Text>
@@ -193,14 +203,16 @@ class PostList extends Component {
         </CardItem>
         <CardItem>
           <Body>
+            {/* Render the username */}
             <Text>
-             <Icon 
+              <Icon
                 type="FontAwesome"
                 name="user-circle"
-                style={{ fontSize: 14}}
+                style={{ fontSize: 14 }}
               />{' '}
               {post.ownerUsername}{' '}
             </Text>
+            {/* Render how old it is */}
             <Text>
               <Icon
                 type="FontAwesome"
@@ -209,13 +221,12 @@ class PostList extends Component {
               />{' '}
               <TimeAgo time={post.createdOn.toDate()} />{' '}
             </Text>
+            {/* Render the distance */}
             <Text>
-              <Icon 
-              type="FontAwesome" 
-              name="globe" 
-              style={{ fontSize: 15 }} />{' '}
+              <Icon type="FontAwesome" name="globe" style={{ fontSize: 15 }} />{' '}
               {distText}
             </Text>
+            {/* Render comments if any */}
             {numComments > 0 && (
               <Text>
                 <Icon name="md-chatboxes" style={{ fontSize: 15 }} />{' '}
@@ -228,6 +239,7 @@ class PostList extends Component {
     );
   };
 
+  // Change post query sub on location change
   resetFetchSubscription = (lat, lon) => {
     const {
       subscribeFetchPostList,
@@ -334,7 +346,7 @@ class PostList extends Component {
               {currentGeo.coords.longitude})
             </Text>
           )}
-          <View style={ styles.locationPosition } />
+          <View style={styles.locationPosition} />
         </Content>
         <View>
           <Fab

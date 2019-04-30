@@ -10,6 +10,7 @@ const INITIAL_STATE = {
   sortMethod: 'new',
 };
 
+// Sort the posts in cache using the selected sorting method
 const sortPosts = (postList, sortMethod) => {
   const startTime = new Date().getMilliseconds();
   const sortedPosts = [...postList];

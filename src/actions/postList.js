@@ -54,6 +54,7 @@ const canDisplayPost = (post, userLat, userLong) => {
 };
 
 // These are help functions, don't export them
+// Filters the post list that was loaded based on date and distance
 const filterPostList = (dispatch, userLat, userLong, querySnapshot) => {
   const startTime = new Date().getMilliseconds();
   console.log('got the posts');
@@ -105,6 +106,7 @@ export const subscribeFetchPostList = (
 
   const gfs = new GeoFirestore(firebase.firestore());
 
+  // Query by location with geofirestore geohashes
   console.log('Creating new query subscription...');
   const query = gfs
     .collection('posts')
@@ -116,6 +118,7 @@ export const subscribeFetchPostList = (
   dispatch({ type: types.SUBSCRIBE_FETCH_POST_LIST, payload: subscription });
 };
 
+// Repost a post. If canRepost, we add a repost, otherwise delete our repost.
 export const repostPost = (post, canRepost) => dispatch => {
   const userId = firebase.auth().currentUser.uid;
 
@@ -148,6 +151,7 @@ export const repostPost = (post, canRepost) => dispatch => {
   });
 };
 
+// Change the sorting method for new post loads
 export const setSortMethod = sortMethod => dispatch => {
   dispatch({ type: types.SET_SORT_METHOD, payload: sortMethod });
   dispatch({ type: types.SORT_POST_CACHE, payload: sortMethod });
